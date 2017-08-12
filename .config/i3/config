@@ -41,13 +41,13 @@ bindsym $mod+p exec --no-startup-id phpstorm
 bindsym $mod+t exec --no-startup-id subl3
 
 # start gpmdp
-bindsym $mod+m exec --no-startup-id ~/stuff/maxfloat.sh
+bindsym $mod+m exec --no-startup-id ~/scripts/maxfloat.sh
 
 # screenshot 
 bindsym Print exec (d=$(date +%Y-%m-%d_%H:%M:%S) && scrot $HOME/Pictures/screenshots/ss_$d.png && notify-send 'Screenshot taken!' \~/Pictures/screenshots/ss_$d.png)
 
 # video capture
-bindsym $mod+Print exec --no-startup-id ~/bin/screen-record.sh
+bindsym $mod+Print exec --no-startup-id ~/scripts/screen-record.sh
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -119,10 +119,10 @@ bindsym $mod+a focus parent
 # focus the child container
 #bindsym $mod+d focus child
 
-bindsym $mod+F1 exec --no-startup-id ~/stuff/traytoggle.sh 1
-bindsym $mod+F2 exec --no-startup-id ~/stuff/traytoggle.sh 2
-bindsym $mod+F3 exec --no-startup-id ~/stuff/traytoggle.sh 3
-bindsym $mod+F4 exec --no-startup-id ~/stuff/traytoggle.sh 4
+bindsym $mod+F1 exec --no-startup-id ~/scripts/traytoggle.sh 1
+bindsym $mod+F2 exec --no-startup-id ~/scripts/traytoggle.sh 2
+bindsym $mod+F3 exec --no-startup-id ~/scripts/traytoggle.sh 3
+bindsym $mod+F4 exec --no-startup-id ~/scripts/traytoggle.sh 4
 
 set $1   1
 set $2   2
