@@ -80,6 +80,7 @@ ranger-cd() {
 zle -N ranger-cd
 bindkey '^o' ranger-cd
 
-alias attendance='packeta-attendance martin.franc@zasilkovna.cz $(gpg --decrypt < .password-store/zasilkovna/admin/martin.franc@zasilkovna.cz.gpg 2>/dev/null | head -1)'
+alias attendance='packeta-attendance martin.franc@zasilkovna.cz $(gpg --decrypt < ~/.password-store/zasilkovna/admin/martin.franc@zasilkovna.cz.gpg 2>/dev/null | head -1)'
 source `which virtualenvwrapper_lazy.sh`
 alias cgit='/usr/bin/git --git-dir=/home/anon/.cfg/ --work-tree=/home/anon'
+alias vim='nvim'
