@@ -32,7 +32,7 @@ bindsym XF86Display exec --no-startup-id ~/scripts/monitor.sh
 bindsym $mod+Return exec termite
 
 # start a browser
-bindsym $mod+b exec --no-startup-id firefox-nightly 
+bindsym $mod+b exec --no-startup-id $BROWSER 
 
 # start phpstorm
 bindsym $mod+p exec --no-startup-id phpstorm
@@ -208,7 +208,7 @@ for_window [class="Gajim"] floating enable
 bar {
         font pango:Roboto Mono 10
         status_command i3blocks -c ~/.config/i3/i3blocks.conf
-	position bottom    
+	position bottom
 
         colors {
                 statusline $white
