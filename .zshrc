@@ -2,16 +2,12 @@
 disable r
 
 # keybinds
-bindkey "${terminfo[khome]}" beginning-of-line
-bindkey "${terminfo[kend]}" end-of-line
 bindkey "${terminfo[kdch1]}" delete-char
 bindkey '^[[1;5D' backward-word
 bindkey '^[[1;5C' forward-word
 
-if [[ $TERM == xterm-termite ]] then
-  bindkey "^[[H" beginning-of-line
-  bindkey "^[[F" end-of-line
-fi
+bindkey "^[[H" beginning-of-line
+bindkey "^[[F" end-of-line
 
 # beep off
 xset -b
@@ -32,7 +28,6 @@ alias sudo='sudo -E '
 alias setclip='xclip -selection c'
 alias getclip='xclip -selection clipboard -o'
 alias ll='ls -alh'
-alias subl='subl3'
 alias make='make -j4'
 alias noise='head -10 /dev/urandom | padsp tee | aplay 2>/dev/null 1>/dev/null'
 alias cgit='/usr/bin/git --git-dir=/home/anon/.cfg/ --work-tree=/home/anon'

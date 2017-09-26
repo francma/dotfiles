@@ -29,7 +29,7 @@ bindsym XF86ScreenSaver exec --no-startup-id i3lock -c "$accent" -d
 bindsym XF86Display exec --no-startup-id ~/scripts/monitor.sh
 
 # start a terminal
-bindsym $mod+Return exec termite
+bindsym $mod+Return exec alacritty
 
 # start a browser
 bindsym $mod+b exec --no-startup-id $BROWSER 
@@ -38,7 +38,7 @@ bindsym $mod+b exec --no-startup-id $BROWSER
 bindsym $mod+p exec --no-startup-id phpstorm
 
 # start sublime text
-bindsym $mod+t exec --no-startup-id subl3
+bindsym $mod+t exec --no-startup-id subl
 
 # start gpmdp
 bindsym $mod+m exec --no-startup-id ~/scripts/maxfloat.sh
