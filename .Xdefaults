@@ -58,4 +58,5 @@ rofi.color-active: #212121, #82aaff, #eee8d5, #82aaff, #212121
 rofi.color-urgent: #212121, #ff5370, #eee8d5, #ff5370, #212121
 
 ! fix cursor scaling when switching monitors
-Xcursor.size: 32
+Xcursor.theme: Vanilla-DMZ
+Xcursor.size: 24 

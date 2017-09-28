@@ -6,8 +6,8 @@ bindkey "${terminfo[kdch1]}" delete-char
 bindkey '^[[1;5D' backward-word
 bindkey '^[[1;5C' forward-word
 
-bindkey "^[[H" beginning-of-line
-bindkey "^[[F" end-of-line
+bindkey "${terminfo[khome]}" beginning-of-line
+bindkey "${terminfo[kend]}" end-of-line
 
 # beep off
 xset -b
@@ -38,7 +38,7 @@ alias attendance='packeta-attendance martin.franc@zasilkovna.cz $(gpg --decrypt 
 HISTFILE=~/.histfile
 HISTSIZE=1000000
 SAVEHIST=1000000
-bindkey '^R' history-incremental-search-backward
+bindkey '^r' history-incremental-search-backward
 setopt incappendhistory sharehistory
 
 # autocomplete
@@ -62,19 +62,18 @@ PROMPT='%{$bg[black]%}%{$fg_bold[red]%}%(?..[%?] )%{%(#~$fg[red]~$fg[green])%}[%
 %{$reset_color%}%{$fg_bold[blue]%}λ%{$reset_color%} '
 
 # ranger
-ranger-cd() {
-  tempfile=$(mktemp)
-  ranger --choosedir="$tempfile" "${@:-$(pwd)}" < $TTY
-  test -f "$tempfile" &&
-  if [ "$(cat -- "$tempfile")" != "$(echo -n `pwd`)" ]; then
-    cd -- "$(cat "$tempfile")"
-  fi
-  rm -f -- "$tempfile"
+function ranger-cd {
+    tempfile="$(mktemp -t tmp.XXXXXX)"
+    ranger --choosedir="$tempfile" "${@:-$(pwd)}"
+    test -f "$tempfile" &&
+    if [ "$(cat -- "$tempfile")" != "$(echo -n `pwd`)" ]; then
+        cd -- "$(cat "$tempfile")"
+    fi
+    rm -f -- "$tempfile"
 }
 
-zle -N ranger-cd
-bindkey '^o' ranger-cd
+bindkey -s '^o' 'ranger-cd^M'
 
 # python virtualenv completions
-source $(which virtualenvwrapper_lazy.sh)
+#source $(which virtualenvwrapper_lazy.sh)
 
