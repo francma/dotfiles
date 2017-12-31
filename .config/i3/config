@@ -31,7 +31,7 @@ bindsym XF86MonBrightnessUp exec --no-startup-id light -A 5
 bindsym XF86MonBrightnessDown exec --no-startup-id light -U 5
 
 # start a terminal
-bindsym $mod+Return exec urxvt 
+bindsym $mod+Return exec urxvtc 
 
 # start a browser
 bindsym $mod+b exec --no-startup-id $BROWSER 
@@ -222,7 +222,7 @@ exec_always --no-startup-id hsetroot -solid "$black"
 #exec_always --no-startup-id feh --bg-scale $wall 
 
 # compton
- exec_always --no-startup-id killall compton; compton --config ~/.config/.compton -b
+# exec_always --no-startup-id killall compton; compton --config ~/.config/.compton -b
 
 # keyboard lang change
 exec --no-startup-id setxkbmap -option grp:switch,grp:alt_shift_toggle -layout us,cz -variant ,qwerty

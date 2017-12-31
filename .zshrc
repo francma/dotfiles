@@ -5,12 +5,8 @@ disable r
 bindkey "${terminfo[kdch1]}" delete-char
 bindkey '^[[1;5D' backward-word
 bindkey '^[[1;5C' forward-word
-
 bindkey "${terminfo[khome]}" beginning-of-line
 bindkey "${terminfo[kend]}" end-of-line
-
-# beep off
-xset -b
 
 # aliases
 if [ -x /usr/bin/dircolors ]; then
@@ -32,7 +28,6 @@ alias make='make -j4'
 alias noise='head -10 /dev/urandom | padsp tee | aplay 2>/dev/null 1>/dev/null'
 alias cgit='/usr/bin/git --git-dir=/home/anon/.cfg/ --work-tree=/home/anon'
 alias vim='nvim'
-alias attendance='packeta-attendance martin.franc@zasilkovna.cz $(gpg --decrypt < ~/.password-store/zasilkovna/admin/martin.franc@zasilkovna.cz.gpg 2>/dev/null | head -1)'
 
 # history
 HISTFILE=~/.histfile
@@ -51,15 +46,15 @@ autoload -U colors && colors
 
 # prompt
 autoload -Uz vcs_info
-zstyle ':vcs_info:*' enable git svn
+zstyle ':vcs_info:*' enable git
 precmd() {
     vcs_info
 }
-zstyle ':vcs_info:git*' formats " %{$fg_bold[green]%}[%{$fg_bold[blue]%}%s: %b%{$fg_bold[green]%}]"
+zstyle ':vcs_info:git*' formats " %F{green}[%F{blue}%s: %b%F{green}]"
 setopt prompt_subst
 
-PROMPT='%{$bg[black]%}%{$fg_bold[red]%}%(?..[%?] )%{%(#~$fg[red]~$fg[green])%}[%{$fg_bold[blue]%}%~%{%(#~$fg[red]~$fg[green])%}]${vcs_info_msg_0_}%E
-%{$reset_color%}%{$fg_bold[blue]%}λ%{$reset_color%} '
+PROMPT='%B%K{black}%F{red}%(?..[%?] )%F{green}[%F{blue}%~%F{green}]${vcs_info_msg_0_}%E
+%k%F{blue}>%k%f%b%u '
 
 # ranger
 function ranger-cd {
@@ -75,5 +70,5 @@ function ranger-cd {
 bindkey -s '^o' 'ranger-cd^M'
 
 # python virtualenv completions
-#source $(which virtualenvwrapper_lazy.sh)
+source $(which virtualenvwrapper_lazy.sh)
 
