@@ -24,8 +24,8 @@ bindsym $mod+slash exec --no-startup-id playerctl play-pause
 bindsym $mod+period exec --no-startup-id playerctl next
 bindsym $mod+comma exec --no-startup-id playerctl previous
 
-bindsym $mod+l exec --no-startup-id i3lock -c "$accent" -d
-bindsym XF86Display exec --no-startup-id ~/scripts/monitor.sh
+bindsym $mod+l exec --no-startup-id i3lock -c "$black"
+bindsym XF86Display exec --no-startup-id mons -s
 
 bindsym XF86MonBrightnessUp exec --no-startup-id light -A 5
 bindsym XF86MonBrightnessDown exec --no-startup-id light -U 5
@@ -46,7 +46,7 @@ bindsym $mod+t exec --no-startup-id subl
 bindsym $mod+m exec --no-startup-id ~/scripts/maxfloat.sh
 
 # screenshot 
-bindsym Print exec (d=$(date +%Y-%m-%d_%H:%M:%S) && scrot $HOME/Pictures/screenshots/ss_$d.png && notify-send 'Screenshot taken!' \~/Pictures/screenshots/ss_$d.png)
+bindsym Print exec --no-startup-id ~/scripts/screenshot.sh
 
 # video capture
 bindsym $mod+Print exec --no-startup-id ~/scripts/screen-record.sh
@@ -54,12 +54,9 @@ bindsym $mod+Print exec --no-startup-id ~/scripts/screen-record.sh
 # kill focused window
 bindsym $mod+Shift+q kill
 
-# start dmenu (a program launcher)
-#bindsym $mod+d exec dmenu_run -fn 'Roboto Mono-10:normal' -nb '$black' -nf '$white' -sb '$accent' -sf '$black' -p '$'
-
+# start rofi (a program launcher)
 bindsym $mod+d exec rofi -show combi
 bindsym $mod+Shift+d exec rofi-pass
-
 
 # recent used desktop switch
 bindsym $mod+Tab workspace back_and_forth
@@ -120,37 +117,27 @@ bindsym $mod+F2 exec --no-startup-id ~/scripts/traytoggle.sh 2
 bindsym $mod+F3 exec --no-startup-id ~/scripts/traytoggle.sh 3
 bindsym $mod+F4 exec --no-startup-id ~/scripts/traytoggle.sh 4
 
-set $1   1
-set $2   2
-set $3   3
-set $4   4
-set $5   5
-set $6   6
-set $7   7
-set $8   8
-set $9   9
-
 # switch to workspace
-bindsym $mod+1 workspace $1
-bindsym $mod+2 workspace $2
-bindsym $mod+3 workspace $3
-bindsym $mod+4 workspace $4
-bindsym $mod+5 workspace $5
-bindsym $mod+6 workspace $6
-bindsym $mod+7 workspace $7
-bindsym $mod+8 workspace $8
-bindsym $mod+9 workspace $9
+bindsym $mod+1 workspace 1
+bindsym $mod+2 workspace 2
+bindsym $mod+3 workspace 3
+bindsym $mod+4 workspace 4
+bindsym $mod+5 workspace 5
+bindsym $mod+6 workspace 6
+bindsym $mod+7 workspace 7
+bindsym $mod+8 workspace 8
+bindsym $mod+9 workspace 9
 
 # move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace $1
-bindsym $mod+Shift+2 move container to workspace $2
-bindsym $mod+Shift+3 move container to workspace $3
-bindsym $mod+Shift+4 move container to workspace $4
-bindsym $mod+Shift+5 move container to workspace $5
-bindsym $mod+Shift+6 move container to workspace $6
-bindsym $mod+Shift+7 move container to workspace $7
-bindsym $mod+Shift+8 move container to workspace $8
-bindsym $mod+Shift+9 move container to workspace $9
+bindsym $mod+Shift+1 move container to workspace 1
+bindsym $mod+Shift+2 move container to workspace 2
+bindsym $mod+Shift+3 move container to workspace 3
+bindsym $mod+Shift+4 move container to workspace 4
+bindsym $mod+Shift+5 move container to workspace 5
+bindsym $mod+Shift+6 move container to workspace 6
+bindsym $mod+Shift+7 move container to workspace 7
+bindsym $mod+Shift+8 move container to workspace 8
+bindsym $mod+Shift+9 move container to workspace 9
 
 # next workspace
 bindsym Control+Mod1+Right workspace next
@@ -161,7 +148,7 @@ bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'killall xss-lock; i3-msg exit'"
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Exit?' -b 'Yes, exit i3' 'killall xss-lock; i3-msg exit'"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -190,8 +177,8 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 client.focused            $accent   $accent   $black   $black
-client.focused_inactive   $grey   $grey   $accent   $black
-client.unfocused          $grey   $grey   $white  $black 
+client.focused_inactive   $grey     $grey     $accent  $black
+client.unfocused          $grey     $grey     $white   $black 
 client.background         $black
 
 for_window [class="Slack"] floating enable
@@ -213,24 +200,23 @@ bar {
 }
 
 
-
-
 # solid color as wallpaper
-exec_always --no-startup-id hsetroot -solid "$black"
-
-# wallpaper
-#exec_always --no-startup-id feh --bg-scale $wall 
-
-# compton
-# exec_always --no-startup-id killall compton; compton --config ~/.config/.compton -b
+exec --no-startup-id hsetroot -solid "$black"
 
 # keyboard lang change
 exec --no-startup-id setxkbmap -option grp:switch,grp:alt_shift_toggle -layout us,cz -variant ,qwerty
 
 # register lock
-exec --no-startup-id xss-lock -- i3lock -c "$accent"
+exec --no-startup-id xss-lock -- i3lock -c "$black"
 
 # notification deamon
 exec --no-startup-id dunst 
 
-exec --no-startup-id devmon &
+# automount
+exec --no-startup-id devmon
+
+# keyboard rate
+exec --no-startup-id xset r rate 200 30
+
+# urxvtd
+exec --no-startup-id urxvtd -q -f -o

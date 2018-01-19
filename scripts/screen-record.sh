@@ -1,9 +1,10 @@
-#!/usr/bin/zsh
+#!/bin/sh
+set -eu
 
-if [[ -a '/tmp/ffmpeg_capture_pid' ]]; then
+if [ -f '/tmp/ffmpeg_capture_pid' ]; then
 	kill -2 $(cat /tmp/ffmpeg_capture_pid)
 	rm /tmp/ffmpeg_capture_pid
-	notify-send 'Video taken!' $(ls -t ~/Videos/videocaptures/ | head -n1)
+	notify-send 'Video taken!'
 	exit 0
 fi
 
