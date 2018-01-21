@@ -178,7 +178,7 @@ bindsym $mod+r mode "resize"
 
 client.focused            $accent   $accent   $black   $black
 client.focused_inactive   $grey     $grey     $accent  $black
-client.unfocused          $grey     $grey     $white   $black 
+client.unfocused          $grey     $grey     $white   $black
 client.background         $black
 
 for_window [class="Slack"] floating enable
@@ -199,6 +199,8 @@ bar {
         }
 }
 
+
+exec --no-startup-id compton --config ~/.config/.compton
 
 # solid color as wallpaper
 exec --no-startup-id hsetroot -solid "$black"
