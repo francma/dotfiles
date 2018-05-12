@@ -2,7 +2,7 @@ URxvt.iso14755: false
 URxvt.perl-ext-common: default,clipboard,keyboard-select
 
 URxvt.scrollBar: false
-URxvt.font: xft:Roboto Mono:size=11
+URxvt.font: xft:IBM Plex Mono:size=12
 URxvt.scrollTtyOutput: false
 URxvt.scrollTtyKeypress: true
 
@@ -58,3 +58,7 @@ rofi.color-urgent: #212121, #ff5370, #eee8d5, #ff5370, #212121
 ! fix cursor scaling when switching monitors
 Xcursor.theme: Vanilla-DMZ
 Xcursor.size: 24 
+
+URxvt.colorIT: #f5f5f5
+URxvt.colorBD: #f5f5f5
+URxvt.colorUL: #82aaff

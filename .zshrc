@@ -1,12 +1,18 @@
 # disable last command re-play
 disable r
 
+noop () {}
+zle -N noop
+
 # keybinds
 bindkey "${terminfo[kdch1]}" delete-char
 bindkey '^[[1;5D' backward-word
 bindkey '^[[1;5C' forward-word
 bindkey "${terminfo[khome]}" beginning-of-line
 bindkey "${terminfo[kend]}" end-of-line
+bindkey "${terminfo[knp]}" noop
+bindkey "${terminfo[kpp]}" noop
+bindkey "${terminfo[kich1]}" noop
 
 # aliases
 if [ -x /usr/bin/dircolors ]; then
@@ -23,7 +29,7 @@ fi
 alias sudo='sudo -E '
 alias setclip='xclip -selection c'
 alias getclip='xclip -selection clipboard -o'
-alias ll='ls -alh'
+alias ll='ls -alh --group-directories-first'
 alias make='make -j4'
 alias noise='head -10 /dev/urandom | padsp tee | aplay 2>/dev/null 1>/dev/null'
 alias cgit='/usr/bin/git --git-dir=/home/anon/.cfg/ --work-tree=/home/anon'
@@ -72,3 +78,5 @@ bindkey -s '^o' 'ranger-cd^M'
 # python virtualenv completions
 source $(which virtualenvwrapper_lazy.sh)
 
+# added by travis gem
+[ -f /home/anon/.travis/travis.sh ] && source /home/anon/.travis/travis.sh
