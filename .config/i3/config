@@ -24,8 +24,8 @@ bindsym $mod+slash exec --no-startup-id playerctl play-pause
 bindsym $mod+period exec --no-startup-id playerctl next
 bindsym $mod+comma exec --no-startup-id playerctl previous
 
-bindsym $mod+l exec --no-startup-id i3lock -c "$black"
-bindsym XF86Display exec --no-startup-id mons -n top 
+bindsym $mod+l exec --no-startup-id i3lock -c "$accent"
+bindsym XF86Display exec --no-startup-id mons -s
 
 bindsym XF86MonBrightnessUp exec --no-startup-id light -A 5
 bindsym XF86MonBrightnessDown exec --no-startup-id light -U 5
@@ -187,7 +187,6 @@ for_window [class="Pinentry"] floating enable
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-	tray_output primary
         font pango: IBM Plex Mono 11
         status_command i3blocks -c ~/.config/i3/i3blocks.conf
 	position bottom
@@ -210,7 +209,7 @@ exec --no-startup-id hsetroot -solid "$black"
 exec --no-startup-id setxkbmap -option grp:switch,grp:alt_shift_toggle -layout us,cz -variant ,qwerty
 
 # register lock
-exec --no-startup-id xss-lock -- i3lock -c "$black"
+exec --no-startup-id xss-lock -- i3lock -c "$accent"
 
 # notification deamon
 exec_always --no-startup-id killall dunst; dunst
@@ -223,3 +222,5 @@ exec --no-startup-id xset r rate 200 30
 
 # urxvtd
 exec --no-startup-id urxvtd -q -f -o
+
+exec --no-startup-id killall mons; mons -a

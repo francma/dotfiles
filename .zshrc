@@ -34,6 +34,9 @@ alias make='make -j4'
 alias noise='head -10 /dev/urandom | padsp tee | aplay 2>/dev/null 1>/dev/null'
 alias cgit='/usr/bin/git --git-dir=/home/anon/.cfg/ --work-tree=/home/anon'
 alias vim='nvim'
+alias attendance="web4u-attendance francm $WEB4U_ADM_PASSWORD"
+alias web4u='cd ~/web4u/docker-env/data100/web4u'
+alias viso='cd ~/viso/docker-env/projects/kukacka'
 
 # history
 HISTFILE=~/.histfile
@@ -80,3 +83,9 @@ source $(which virtualenvwrapper_lazy.sh)
 
 # added by travis gem
 [ -f /home/anon/.travis/travis.sh ] && source /home/anon/.travis/travis.sh
+
+# autostart i3wm
+if [ $(tty) = "/dev/tty1" ]; then
+    startx
+    exit 0
+fi
