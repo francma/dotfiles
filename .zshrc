@@ -62,7 +62,7 @@ precmd() {
 zstyle ':vcs_info:git*' formats " %F{green}[%F{blue}%s: %b%F{green}]"
 setopt prompt_subst
 
-PROMPT='%B%K{black}%F{red}%(?..[%?] )%F{green}[%F{blue}%~%F{green}]${vcs_info_msg_0_}%E
+PROMPT='%B%K{black}%F{black}[%D{%H:%M}] %F{red}%(?..[%?] )%F{green}[%F{blue}%~%F{green}]${vcs_info_msg_0_}%E
 %k%F{blue}>%k%f%b%u '
 
 # ranger

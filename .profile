@@ -1,9 +1,6 @@
-export PATH=$PATH:~/bin:~/.config/composer/vendor/bin:~/.node_modules/bin:$(ruby -e 'print Gem.user_dir')/bin
+export PATH=$PATH:~/bin:~/.config/composer/vendor/bin:~/.local/bin
 export EDITOR=nvim
 export BROWSER=firefox
 export TIME_STYLE=long
-export _JAVA_AWT_WM_NONREPARENTING=1
-export npm_config_prefix=~/.node_modules
-export GITLAB_API_ENDPOINT="https://gitlab.web4u.cz/api/v4"
 export LC_CTYPE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
