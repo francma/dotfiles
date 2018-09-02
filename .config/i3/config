@@ -57,6 +57,7 @@ bindsym $mod+Shift+q kill
 # start rofi (a program launcher)
 bindsym $mod+d exec rofi -show combi
 bindsym $mod+Shift+d exec rofi-pass
+bindsym $mod+Shift+n exec networkmanager_dmenu
 
 # recent used desktop switch
 bindsym $mod+Tab workspace back_and_forth

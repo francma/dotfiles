@@ -37,6 +37,7 @@ alias vim='nvim'
 alias attendance="web4u-attendance francm $WEB4U_ADM_PASSWORD"
 alias web4u='cd ~/web4u/docker-env/data100/web4u'
 alias viso='cd ~/viso/docker-env/projects/kukacka'
+alias cal='cal -m'
 
 # history
 HISTFILE=~/.histfile
