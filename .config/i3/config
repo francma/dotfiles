@@ -25,7 +25,7 @@ bindsym $mod+period exec --no-startup-id playerctl next
 bindsym $mod+comma exec --no-startup-id playerctl previous
 
 bindsym $mod+l exec --no-startup-id i3lock -c "$accent"
-bindsym XF86Display exec --no-startup-id mons -s
+bindsym XF86Display exec --no-startup-id mons -s; reload
 
 bindsym XF86MonBrightnessUp exec --no-startup-id light -A 5
 bindsym XF86MonBrightnessDown exec --no-startup-id light -U 5
