@@ -35,6 +35,7 @@ alias noise='head -10 /dev/urandom | padsp tee | aplay 2>/dev/null 1>/dev/null'
 alias cgit='/usr/bin/git --git-dir=/home/anon/.cfg/ --work-tree=/home/anon'
 alias vim='nvim'
 alias attendance="web4u-attendance francm $WEB4U_ADM_PASSWORD"
+alias uattendance="u web4uatt francm $WEB4U_ADM_PASSWORD"
 alias web4u='cd ~/web4u/docker-env/data100/web4u'
 alias viso='cd ~/viso/docker-env/projects/kukacka'
 alias cal='cal -m'
@@ -63,7 +64,7 @@ precmd() {
 zstyle ':vcs_info:git*' formats " %F{green}[%F{blue}%s: %b%F{green}]"
 setopt prompt_subst
 
-PROMPT='%B%K{black}%F{black}[%D{%H:%M}] %F{red}%(?..[%?] )%F{green}[%F{blue}%~%F{green}]${vcs_info_msg_0_}%E
+PROMPT='%B%K{235}%F{008}[%D{%H:%M}] %F{red}%(?..[%?] )%F{green}[%F{blue}%~%F{green}]${vcs_info_msg_0_}%E
 %k%F{blue}>%k%f%b%u '
 
 # ranger
@@ -82,11 +83,8 @@ bindkey -s '^o' 'ranger-cd^M'
 # python virtualenv completions
 source $(which virtualenvwrapper_lazy.sh)
 
-# added by travis gem
-[ -f /home/anon/.travis/travis.sh ] && source /home/anon/.travis/travis.sh
-
-# autostart i3wm
+# autostart sway
 if [ $(tty) = "/dev/tty1" ]; then
-    startx
+    sway
     exit 0
 fi

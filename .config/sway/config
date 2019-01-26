@@ -1,0 +1,206 @@
+set $mod Mod4
+
+# colors
+set $accent #396FE2
+set $white #ECEFF1
+set $black #212121
+set $grey #313131
+
+font pango:IBM Plex Mono 11
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# remove title bars
+new_window pixel
+
+# volume controls
+bindsym XF86AudioRaiseVolume exec amixer -q set Master 2%+ unmute && pkill -RTMIN+1 i3blocks
+bindsym XF86AudioLowerVolume exec amixer -q set Master 2%- unmute && pkill -RTMIN+1 i3blocks
+bindsym XF86AudioMute exec amixer -q set Master toggle && pkill -RTMIN+1 i3blocks
+
+bindsym $mod+slash exec playerctl play-pause
+bindsym $mod+period exec playerctl next
+bindsym $mod+comma exec playerctl previous
+
+bindsym $mod+l exec swaylock -c "$accent"
+#bindsym XF86Display exec --no-startup-id mons -s; reload
+
+bindsym XF86MonBrightnessUp exec light -A 5
+bindsym XF86MonBrightnessDown exec light -U 5
+
+bindsym $mod+Grave exec makoctl dismiss
+
+bindsym $mod+Return exec kitty
+bindsym $mod+b exec GDK_BACKEND=wayland $BROWSER
+bindsym $mod+p exec PHPSTORM_JDK=/home/anon/jetbrains/PhpStorm-182.5107.45/jre64 ~/jetbrains/PhpStorm-182.5107.45/bin/phpstorm.sh
+bindsym $mod+t exec subl
+bindsym $mod+m exec ~/scripts/maxfloat.sh
+bindsym Print exec grim ~/Pictures/screenshots/$(date +"%Y-%m-%d_%H:%M:%S.png") && notify-send "Screenshot taken"
+
+bindsym $mod+Shift+q kill
+
+# start rofi (a program launcher)
+bindsym $mod+d exec rofi -show combi
+bindsym $mod+Shift+d exec rofi-pass
+bindsym $mod+Shift+n exec networkmanager_dmenu
+
+# recent used desktop switch
+bindsym $mod+Tab workspace back_and_forth
+workspace_auto_back_and_forth yes
+
+# Make the currently focused window a scratchpad
+bindsym $mod+Shift+minus move scratchpad
+
+# Show the first scratchpad window
+bindsym $mod+minus scratchpad show
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# move focused window
+bindsym $mod+Shift+j move left
+bindsym $mod+Shift+k move down
+bindsym $mod+Shift+l move up
+bindsym $mod+Shift+semicolon move right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# split in horizontal orientation
+bindsym $mod+h split h
+
+# split in vertical orientation
+bindsym $mod+v split v
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# focus the parent container
+bindsym $mod+a focus parent
+
+# focus the child container
+#bindsym $mod+d focus child
+
+bindsym $mod+F1 exec --no-startup-id ~/scripts/traytoggle.sh 1
+bindsym $mod+F2 exec --no-startup-id ~/scripts/traytoggle.sh 2
+bindsym $mod+F3 exec --no-startup-id ~/scripts/traytoggle.sh 3
+bindsym $mod+F4 exec --no-startup-id ~/scripts/traytoggle.sh 4
+
+# switch to workspace
+bindsym $mod+1 workspace 1
+bindsym $mod+2 workspace 2
+bindsym $mod+3 workspace 3
+bindsym $mod+4 workspace 4
+bindsym $mod+5 workspace 5
+bindsym $mod+6 workspace 6
+bindsym $mod+7 workspace 7
+bindsym $mod+8 workspace 8
+bindsym $mod+9 workspace 9
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace 1
+bindsym $mod+Shift+2 move container to workspace 2
+bindsym $mod+Shift+3 move container to workspace 3
+bindsym $mod+Shift+4 move container to workspace 4
+bindsym $mod+Shift+5 move container to workspace 5
+bindsym $mod+Shift+6 move container to workspace 6
+bindsym $mod+Shift+7 move container to workspace 7
+bindsym $mod+Shift+8 move container to workspace 8
+bindsym $mod+Shift+9 move container to workspace 9
+
+# next workspace
+bindsym Control+Mod1+Right workspace next
+bindsym Control+Mod1+Left workspace prev
+
+# reload the configuration file
+bindsym $mod+Shift+c reload
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+# exit i3 (logs you out of your X session)
+bindsym $mod+Shift+e exit
+
+# resize window (you can also use the mouse for that)
+mode "resize" {
+    bindsym j resize shrink width 10 px or 10 ppt
+    bindsym k resize grow height 10 px or 10 ppt
+    bindsym l resize shrink height 10 px or 10 ppt
+    bindsym semicolon resize grow width 10 px or 10 ppt
+    bindsym Left resize shrink width 10 px or 10 ppt
+    bindsym Down resize grow height 10 px or 10 ppt
+    bindsym Up resize shrink height 10 px or 10 ppt
+    bindsym Right resize grow width 10 px or 10 ppt
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym $mod+r mode "resize"
+
+client.focused            $accent   $accent   $black   $black $accent
+client.focused_inactive   $grey     $grey     $accent  $black $grey
+client.unfocused          $grey     $grey     $white   $black $grey
+client.background         $black
+
+for_window [class="Slack"] floating enable
+for_window [class="Pinentry"] floating enable
+
+bar {
+    font pango: IBM Plex Mono 11
+    status_command i3blocks -c ~/.config/i3/i3blocks.conf
+    position bottom
+
+    colors {
+        statusline $white
+        background $black
+        focused_workspace $accent $accent $black
+        inactive_workspace $black $black $white
+    }
+}
+
+
+input 1:1:AT_Translated_Set_2_keyboard {
+    xkb_layout us,cz
+    xkb_variant ,qwerty
+    xkb_options grp:alt_shift_toggle
+    repeat_delay 200
+    repeat_rate 30
+}
+
+input 1133:49284:Logitech_G203_Prodigy_Gaming_Mouse {
+    accel_profile flat
+}
+
+input 2:7:SynPS/2_Synaptics_TouchPad {
+    accel_profile flat
+    tap enabled
+}
+
+output * bg $black solid_color
+
+exec swayidle before-sleep 'swaylock -c "$accent"'
+
+exec mako --font "IBM Plex Mono 11" --background-color "$black" --text-color "$white" --border-color "$accent"
+
+exec_always {
+    gsettings set org.gnome.desktop.interface font-name "Roboto 11"
+    gsettings set org.gnome.desktop.interface gtk-theme 'Arc-Flatabulous-Darker'
+    gsettings set org.gnome.desktop.interface icon-theme 'Arc'
+    gsettings set org.gnome.desktop.interface cursor-theme 'OpenZone_Ice_Slim'
+}
