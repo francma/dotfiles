@@ -2,7 +2,7 @@ URxvt.iso14755: false
 URxvt.perl-ext-common: default,clipboard,keyboard-select
 
 URxvt.scrollBar: false
-URxvt.font: xft:IBM Plex Mono:size=12:antialias=true:autohint=true;
+URxvt.font: xft:Monospace:size=12:antialias=true:autohint=true;
 URxvt.scrollTtyOutput: false
 URxvt.scrollTtyKeypress: true
 
@@ -13,7 +13,13 @@ URxvt.keysym.M-s: perl:keyboard-select:search
 URxvt.keysym.Control-Left: \033[1;5D
 URxvt.keysym.Control-Right: \033[1;5C
 
-st.font: IBM Plex Mono:pixelsize=12:antialias=true:autohint=true;
+Xft.dpi: 96
+Xft.autohint: 0
+Xft.lcdfilter: lcddefault
+Xft.hintstyle: hintslight
+Xft.hinting: 1
+Xft.antialias: 1
+Xft.rgba: rgb
 
 ! special
 *.foreground:   #e9fafa
@@ -51,13 +57,10 @@ st.font: IBM Plex Mono:pixelsize=12:antialias=true:autohint=true;
 *.color7:       #f5f5f5
 *.color15:      #f5f5f5
 
+rofi.font: Monospace 12
 rofi.color-enabled: true
 rofi.color-window: #212121, #82aaff, #82aaff
 rofi.color-normal: #212121, #e9fafa, #343434, #5d6f71, #eee8d5
 rofi.color-active: #212121, #82aaff, #eee8d5, #82aaff, #212121
 rofi.color-urgent: #212121, #ff5370, #eee8d5, #ff5370, #212121
-
-! fix cursor scaling when switching monitors
-Xcursor.theme: Vanilla-DMZ
-Xcursor.size: 24 
 

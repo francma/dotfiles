@@ -6,7 +6,7 @@ set $white #ECEFF1
 set $black #212121
 set $grey #313131
 
-font pango:IBM Plex Mono 11
+font pango:monospace 11
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -24,26 +24,30 @@ bindsym $mod+period exec playerctl next
 bindsym $mod+comma exec playerctl previous
 
 bindsym $mod+l exec swaylock -c "$accent"
-#bindsym XF86Display exec --no-startup-id mons -s; reload
+
 
 bindsym XF86MonBrightnessUp exec light -A 5
 bindsym XF86MonBrightnessDown exec light -U 5
 
 bindsym $mod+Grave exec makoctl dismiss
 
-bindsym $mod+Return exec kitty
+bindsym $mod+Return exec st
 bindsym $mod+b exec GDK_BACKEND=wayland $BROWSER
 bindsym $mod+p exec PHPSTORM_JDK=/home/anon/jetbrains/PhpStorm-182.5107.45/jre64 ~/jetbrains/PhpStorm-182.5107.45/bin/phpstorm.sh
 bindsym $mod+t exec subl
-bindsym $mod+m exec ~/scripts/maxfloat.sh
-bindsym Print exec grim ~/Pictures/screenshots/$(date +"%Y-%m-%d_%H:%M:%S.png") && notify-send "Screenshot taken"
+bindsym Print exec sh -c 'file="$HOME/Pictures/screenshots/$(date +"%Y-%m-%d_%H:%M:%S.png")" && grim "$file" && notify-send "Screenshot taken" && wl-copy < "$file"'
 
 bindsym $mod+Shift+q kill
 
-# start rofi (a program launcher)
-bindsym $mod+d exec rofi -show combi
-bindsym $mod+Shift+d exec rofi-pass
-bindsym $mod+Shift+n exec networkmanager_dmenu
+# program launcher
+for_window [app_id="^swaylauncher$"] floating enable
+bindsym $mod+d exec st --name swaylauncher -- bash -c 'compgen -c | sort -u | fzf -e | xargs -r swaymsg -t command exec'
+bindsym $mod+Shift+d exec st --name swaylauncher -- sh -c 'find ~/.password-store -printf "%P\n" | grep ".gpg$" | sed "s/.gpg$//" | sort | fzf -e | xargs -r pass show | head -1 | wl-copy -no && swaymsg -t command move up 10000 && sleep 5'
+
+# slack, contents of open.bin = START\0$HOME\0slack
+for_window [instance="slack"] floating enable
+for_window [instance="slack"] resize set 9999 9999
+bindsym $mod+F1 for_window [instance="slack"] floating enable, for_window [instance="slack"] resize set 9999 9999, exec socat -u OPEN:$HOME/.config/Slack/open.bin UNIX-CONNECT:$HOME/.config/Slack/SS
 
 # recent used desktop switch
 bindsym $mod+Tab workspace back_and_forth
@@ -95,14 +99,6 @@ bindsym $mod+space focus mode_toggle
 
 # focus the parent container
 bindsym $mod+a focus parent
-
-# focus the child container
-#bindsym $mod+d focus child
-
-bindsym $mod+F1 exec --no-startup-id ~/scripts/traytoggle.sh 1
-bindsym $mod+F2 exec --no-startup-id ~/scripts/traytoggle.sh 2
-bindsym $mod+F3 exec --no-startup-id ~/scripts/traytoggle.sh 3
-bindsym $mod+F4 exec --no-startup-id ~/scripts/traytoggle.sh 4
 
 # switch to workspace
 bindsym $mod+1 workspace 1
@@ -158,11 +154,8 @@ client.focused_inactive   $grey     $grey     $accent  $black $grey
 client.unfocused          $grey     $grey     $white   $black $grey
 client.background         $black
 
-for_window [class="Slack"] floating enable
-for_window [class="Pinentry"] floating enable
-
 bar {
-    font pango: IBM Plex Mono 11
+    font pango: monospace 11
     status_command i3blocks -c ~/.config/i3/i3blocks.conf
     position bottom
 
@@ -196,10 +189,10 @@ output * bg $black solid_color
 
 exec swayidle before-sleep 'swaylock -c "$accent"'
 
-exec mako --font "IBM Plex Mono 11" --background-color "$black" --text-color "$white" --border-color "$accent"
+exec mako --font monospace --background-color "$black" --text-color "$white" --border-color "$accent"
 
 exec_always {
-    gsettings set org.gnome.desktop.interface font-name "Roboto 11"
+    gsettings set org.gnome.desktop.interface font-name "sans-serif 11"
     gsettings set org.gnome.desktop.interface gtk-theme 'Arc-Flatabulous-Darker'
     gsettings set org.gnome.desktop.interface icon-theme 'Arc'
     gsettings set org.gnome.desktop.interface cursor-theme 'OpenZone_Ice_Slim'
