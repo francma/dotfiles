@@ -23,7 +23,7 @@ bindsym $mod+slash exec playerctl play-pause
 bindsym $mod+period exec playerctl next
 bindsym $mod+comma exec playerctl previous
 
-bindsym $mod+l exec swaylock -c "$accent"
+bindsym $mod+l exec swaylock -f -c "$accent"
 
 
 bindsym XF86MonBrightnessUp exec light -A 5
@@ -33,7 +33,6 @@ bindsym $mod+Grave exec makoctl dismiss
 
 bindsym $mod+Return exec st
 bindsym $mod+b exec GDK_BACKEND=wayland $BROWSER
-bindsym $mod+p exec PHPSTORM_JDK=/home/anon/jetbrains/PhpStorm-182.5107.45/jre64 ~/jetbrains/PhpStorm-182.5107.45/bin/phpstorm.sh
 bindsym $mod+t exec subl
 bindsym Print exec sh -c 'file="$HOME/Pictures/screenshots/$(date +"%Y-%m-%d_%H:%M:%S.png")" && grim "$file" && notify-send "Screenshot taken" && wl-copy < "$file"'
 
@@ -187,13 +186,13 @@ input 2:7:SynPS/2_Synaptics_TouchPad {
 
 output * bg $black solid_color
 
-exec swayidle before-sleep 'swaylock -c "$accent"'
+exec swayidle -w before-sleep 'swaylock -f -c "$accent"'
 
 exec mako --font monospace --background-color "$black" --text-color "$white" --border-color "$accent"
 
 exec_always {
-    gsettings set org.gnome.desktop.interface font-name "sans-serif 11"
-    gsettings set org.gnome.desktop.interface gtk-theme 'Arc-Flatabulous-Darker'
+    gsettings set org.gnome.desktop.interface font-name 'sans-serif 11'
+    gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita-dark'
     gsettings set org.gnome.desktop.interface icon-theme 'Arc'
     gsettings set org.gnome.desktop.interface cursor-theme 'OpenZone_Ice_Slim'
 }
