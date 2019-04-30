@@ -29,15 +29,14 @@ shopt -s histappend
 # Save multi-line commands as one command
 shopt -s cmdhist
 
-# Huge history. Doesn't appear to slow things down, so why not?
-HISTSIZE=500000
-HISTFILESIZE=100000
+HISTSIZE=1000  
+HISTFILESIZE=2000
 
 # Avoid duplicate entries
 HISTCONTROL="erasedups:ignoreboth"
 
 # Don't record some commands
-export HISTIGNORE="&:[ ]*:exit:ls:bg:fg:history:clear"
+export HISTIGNORE="&:[ ]*:exit:ll:ls:bg:fg:history:clear:lfcd:viso:web4u"
 
 # Enable incremental history search with up/down arrows (also Readline goodness)
 # Learn more about this here: http://codeinthehole.com/writing/the-most-important-command-line-tip-incremental-history-searching-with-inputrc/
@@ -67,7 +66,7 @@ alias web4u='cd ~/web4u/docker-env/data100/web4u'
 alias viso='cd ~/viso/docker-env/projects/kukacka'
 alias cal='cal -m'
 
-readonly FG_GREY="\e[1;30m"
+readonly FG_GREY="\e[1;90m"
 readonly FG_GREEN="\e[1;32m"
 readonly FG_BLUE="\e[1;34m"
 readonly FG_RED="\e[1;31m"
@@ -85,14 +84,18 @@ git_branch() {
 
 export PS1="\[${FG_GREY}\][\A]\$(last_command) \[${FG_GREEN}\][\[${FG_BLUE}\]\w\[${FG_GREEN}\]] \$(git_branch)\n\[${FG_BLUE}\]> \[${RESET}\]"
 
-function ranger-cd {
-  tempfile="$(mktemp -t tmp.XXXXXX)"
-  ranger --choosedir="$tempfile" "${@:-$(pwd)}"
-  test -f "$tempfile" &&
-  if [ "$(cat -- "$tempfile")" != "$(echo -n `pwd`)" ]; then
-      cd -- "$(cat "$tempfile")"
+lfcd () {
+  tmp="$(mktemp)"
+  lf -last-dir-path="$tmp" "$@"
+  if [ -f "$tmp" ]; then
+    dir="$(cat "$tmp")"
+    rm -f "$tmp"
+    if [ -d "$dir" ]; then
+      if [ "$dir" != "$(pwd)" ]; then
+        cd "$dir"
+      fi
+    fi
   fi
-  rm -f -- "$tempfile"
 }
 
-bind '"\C-o":"ranger-cd\C-m"'
+bind '"\C-o":"lfcd\C-m"'

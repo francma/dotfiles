@@ -29,7 +29,7 @@ bindsym $mod+l exec swaylock -f -c "$accent"
 bindsym XF86MonBrightnessUp exec light -A 5
 bindsym XF86MonBrightnessDown exec light -U 5
 
-bindsym $mod+Grave exec makoctl dismiss
+bindsym $mod+Grave exec makoctl dismiss --all
 
 bindsym $mod+Return exec st
 bindsym $mod+b exec GDK_BACKEND=wayland $BROWSER
@@ -46,7 +46,7 @@ bindsym $mod+Shift+d exec st --name swaylauncher -- sh -c 'find ~/.password-stor
 # slack, contents of open.bin = START\0$HOME\0slack
 for_window [instance="slack"] floating enable
 for_window [instance="slack"] resize set 9999 9999
-bindsym $mod+F1 for_window [instance="slack"] floating enable, for_window [instance="slack"] resize set 9999 9999, exec socat -u OPEN:$HOME/.config/Slack/open.bin UNIX-CONNECT:$HOME/.config/Slack/SS
+bindsym $mod+F1 for_window [instance="slack"] floating enable, for_window [instance="slack"] resize set 9999 9999, exec socat -u OPEN:$HOME/.config/Slack/open.bin UNIX-CONNECT:$HOME/.config/Slack/SS, exec makoctl dismiss --all
 
 # recent used desktop switch
 bindsym $mod+Tab workspace back_and_forth
@@ -125,6 +125,10 @@ bindsym $mod+Shift+9 move container to workspace 9
 bindsym Control+Mod1+Right workspace next
 bindsym Control+Mod1+Left workspace prev
 
+# monitoring
+bindsym $mod+f9 exec echo "workspace 1" | socat TCP:10.7.0.105:99999 -
+bindsym $mod+f10 exec echo "workspace 2" | socat TCP:10.7.0.105:99999 -
+
 # reload the configuration file
 bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
@@ -157,6 +161,7 @@ bar {
     font pango: monospace 11
     status_command i3blocks -c ~/.config/i3/i3blocks.conf
     position bottom
+    tray_output none
 
     colors {
         statusline $white
@@ -189,6 +194,8 @@ output * bg $black solid_color
 exec swayidle -w before-sleep 'swaylock -f -c "$accent"'
 
 exec mako --font monospace --background-color "$black" --text-color "$white" --border-color "$accent"
+
+exec kanshi
 
 exec_always {
     gsettings set org.gnome.desktop.interface font-name 'sans-serif 11'
