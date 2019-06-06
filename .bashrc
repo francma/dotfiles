@@ -65,6 +65,7 @@ alias attendance="web4u-attendance francm $WEB4U_ADM_PASSWORD"
 alias web4u='cd ~/web4u/docker-env/data100/web4u'
 alias viso='cd ~/viso/docker-env/projects/kukacka'
 alias cal='cal -m'
+alias composer='composer --ignore-platform-reqs'
 
 readonly FG_GREY="\e[1;90m"
 readonly FG_GREEN="\e[1;32m"

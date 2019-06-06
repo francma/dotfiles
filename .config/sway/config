@@ -12,7 +12,7 @@ font pango:monospace 11
 floating_modifier $mod
 
 # remove title bars
-new_window pixel
+default_border pixel
 
 # volume controls
 bindsym XF86AudioRaiseVolume exec amixer -q set Master 2%+ unmute && pkill -RTMIN+1 i3blocks
@@ -126,8 +126,8 @@ bindsym Control+Mod1+Right workspace next
 bindsym Control+Mod1+Left workspace prev
 
 # monitoring
-bindsym $mod+f9 exec echo "workspace 1" | socat TCP:10.7.0.105:99999 -
-bindsym $mod+f10 exec echo "workspace 2" | socat TCP:10.7.0.105:99999 -
+bindsym $mod+f9 exec echo "workspace 1" | socat -6 TCP:[fe80::44:8ff:fe0d:70f5%eth0]:99999 -
+bindsym $mod+f10 exec echo "workspace 2" | socat -6 TCP:[fe80::44:8ff:fe0d:70f5%eth0]:99999 -
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -165,7 +165,7 @@ bar {
 
     colors {
         statusline $white
-        background $black
+        background #00000000
         focused_workspace $accent $accent $black
         inactive_workspace $black $black $white
     }
@@ -180,22 +180,21 @@ input 1:1:AT_Translated_Set_2_keyboard {
     repeat_rate 30
 }
 
-input 1133:49284:Logitech_G203_Prodigy_Gaming_Mouse {
+input * {
     accel_profile flat
 }
 
 input 2:7:SynPS/2_Synaptics_TouchPad {
-    accel_profile flat
     tap enabled
 }
 
-output * bg $black solid_color
+exec swaybg -c "$black"
 
 exec swayidle -w before-sleep 'swaylock -f -c "$accent"'
 
 exec mako --font monospace --background-color "$black" --text-color "$white" --border-color "$accent"
 
-exec kanshi
+exec sleep 5 && kanshi
 
 exec_always {
     gsettings set org.gnome.desktop.interface font-name 'sans-serif 11'
