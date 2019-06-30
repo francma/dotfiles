@@ -29,14 +29,16 @@ shopt -s histappend
 # Save multi-line commands as one command
 shopt -s cmdhist
 
-HISTSIZE=1000  
-HISTFILESIZE=2000
+HISTSIZE= 
+HISTFILESIZE=
 
 # Avoid duplicate entries
 HISTCONTROL="erasedups:ignoreboth"
 
 # Don't record some commands
 export HISTIGNORE="&:[ ]*:exit:ll:ls:bg:fg:history:clear:lfcd:viso:web4u"
+
+export GPG_TTY="$(tty)"
 
 # Enable incremental history search with up/down arrows (also Readline goodness)
 # Learn more about this here: http://codeinthehole.com/writing/the-most-important-command-line-tip-incremental-history-searching-with-inputrc/

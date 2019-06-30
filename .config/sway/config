@@ -19,29 +19,28 @@ bindsym XF86AudioRaiseVolume exec amixer -q set Master 2%+ unmute && pkill -RTMI
 bindsym XF86AudioLowerVolume exec amixer -q set Master 2%- unmute && pkill -RTMIN+1 i3blocks
 bindsym XF86AudioMute exec amixer -q set Master toggle && pkill -RTMIN+1 i3blocks
 
-bindsym $mod+slash exec playerctl play-pause
-bindsym $mod+period exec playerctl next
-bindsym $mod+comma exec playerctl previous
+bindsym $mod+slash exec mpc toggle
+bindsym $mod+period exec mpc next
+bindsym $mod+comma exec mpc previous
 
 bindsym $mod+l exec swaylock -f -c "$accent"
-
 
 bindsym XF86MonBrightnessUp exec light -A 5
 bindsym XF86MonBrightnessDown exec light -U 5
 
 bindsym $mod+Grave exec makoctl dismiss --all
 
-bindsym $mod+Return exec st
-bindsym $mod+b exec GDK_BACKEND=wayland $BROWSER
+bindsym $mod+Return exec $TERMINAL
+bindsym $mod+b exec $BROWSER
 bindsym $mod+t exec subl
 bindsym Print exec sh -c 'file="$HOME/Pictures/screenshots/$(date +"%Y-%m-%d_%H:%M:%S.png")" && grim "$file" && notify-send "Screenshot taken" && wl-copy < "$file"'
 
 bindsym $mod+Shift+q kill
 
 # program launcher
-for_window [app_id="^swaylauncher$"] floating enable
+for_window [app_id="^swaylauncher$"] floating enable, layout tabbed
 bindsym $mod+d exec st --name swaylauncher -- bash -c 'compgen -c | sort -u | fzf -e | xargs -r swaymsg -t command exec'
-bindsym $mod+Shift+d exec st --name swaylauncher -- sh -c 'find ~/.password-store -printf "%P\n" | grep ".gpg$" | sed "s/.gpg$//" | sort | fzf -e | xargs -r pass show | head -1 | wl-copy -no && swaymsg -t command move up 10000 && sleep 5'
+bindsym $mod+Shift+d exec st --name swaylauncher -- bash -ic 'find ~/.password-store -printf "%P\n" | grep ".gpg$" | sed "s/.gpg$//" | sort | fzf -e | xargs -r pass show | head -1 | wl-copy -no'
 
 # slack, contents of open.bin = START\0$HOME\0slack
 for_window [instance="slack"] floating enable
