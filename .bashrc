@@ -85,7 +85,7 @@ git_branch() {
   [[ "${branch}" != "" ]] && printf "\001${FG_GREEN}\002[\001${FG_BLUE}\002git: ${branch}\001${FG_GREEN}\002]"
 }
 
-export PS1="\[${FG_GREY}\][\A]\$(last_command) \[${FG_GREEN}\][\[${FG_BLUE}\]\w\[${FG_GREEN}\]] \$(git_branch)\n\[${FG_BLUE}\]> \[${RESET}\]"
+PS1="\[${FG_GREY}\][\A]\$(last_command) \[${FG_GREEN}\][\[${FG_BLUE}\]\w\[${FG_GREEN}\]] \$(git_branch)\n\[${FG_BLUE}\]> \[${RESET}\]"
 
 lfcd () {
   tmp="$(mktemp)"
