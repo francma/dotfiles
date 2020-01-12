@@ -61,7 +61,7 @@ fi
 
 alias sudo='sudo -E '
 alias ll='ls -alh --group-directories-first'
-alias cgit='/usr/bin/git --git-dir=/home/anon/.cfg/ --work-tree=/home/anon'
+alias cgit='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 alias vim='nvim'
 alias attendance="web4u-attendance francm $WEB4U_ADM_PASSWORD"
 alias web4u='cd ~/web4u/docker-env/data100/web4u'
