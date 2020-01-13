@@ -15,13 +15,14 @@ floating_modifier $mod
 default_border pixel
 
 # volume controls
-bindsym XF86AudioRaiseVolume exec pamixer -ui 2 && pamixer --get-volume > /tmp/wobpipe
-bindsym XF86AudioLowerVolume exec pamixer -ud 2 && pamixer --get-volume > /tmp/wobpipe
-bindsym XF86AudioMute exec amixer -q set Master toggle
+bindsym XF86AudioRaiseVolume exec pamixer -ui 2 && pamixer --get-volume > $SWAYSOCK.wob
+bindsym XF86AudioLowerVolume exec pamixer -ud 2 && pamixer --get-volume > $SWAYSOCK.wob
+bindsym XF86AudioMute exec pamixer --toggle-mute && ( pamixer --get-mute && echo 0 > $SWAYSOCK.wob ) || pamixer --get-volume > $SWAYSOCK.wob
 
-bindsym $mod+slash exec playerctl play-pause
-bindsym $mod+period exec playerctl next
-bindsym $mod+comma exec playerctl previous
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+bindsym XF86AudioStop exec playerctl stop
 
 bindsym $mod+l exec swaylock -f -c "$accent"
 
@@ -187,9 +188,9 @@ exec swayidle -w before-sleep 'swaylock -f -c "$accent"'
 
 exec mako --font "monospace 11" --background-color "$black" --text-color "$white" --border-color "$accent"
 
-#exec kanshi
+exec kanshi
 
-exec rm -f /tmp/wobpipe && mkfifo /tmp/wobpipe && tail -f /tmp/wobpipe | wob > $HOME/.wob.log
+exec mkfifo $SWAYSOCK.wob && tail -f $SWAYSOCK.wob | wob
 
 exec_always {
     gsettings set org.gnome.desktop.interface font-name 'sans-serif 11'

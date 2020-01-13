@@ -1,0 +1,11 @@
+{
+	output LVDS-1 disable
+	output "Dell Inc. DELL U2719D 6KQ3NS2" mode 2560x1440 position 0,0
+}
+{
+	output LVDS-1 mode 1366x768 position 0,0
+}
+{
+	output LVDS-1 disable
+	output "Dell Inc. DELL U2715H GH85D71K2VBS" mode 2560x1440 position 0,0
+}
