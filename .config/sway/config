@@ -24,7 +24,8 @@ bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 bindsym XF86AudioStop exec playerctl stop
 
-bindsym $mod+l exec swaylock -f -c "$accent"
+bindsym XF86TouchpadToggle input "2:7:SynPS/2_Synaptics_TouchPad" events toggle
+bindsym XF86Battery exec swaylock -f -c "$accent"
 
 bindsym XF86MonBrightnessUp exec light -A 5 && light -G | cut -d'.' -f1 > /tmp/wobpipe
 bindsym XF86MonBrightnessDown exec light -U 5 && light -G | cut -d'.' -f1 > /tmp/wobpipe
@@ -192,6 +193,7 @@ exec kanshi
 
 exec mkfifo $SWAYSOCK.wob && tail -f $SWAYSOCK.wob | wob
 
+seat seat0 xcursor_theme OpenZone_Ice_Slim
 exec_always {
     gsettings set org.gnome.desktop.interface font-name 'sans-serif 11'
     gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita-dark'
