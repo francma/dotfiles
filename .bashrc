@@ -61,10 +61,11 @@ fi
 
 alias sudo='sudo -E '
 alias ll='ls -alh --group-directories-first'
-alias cgit='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
+alias cgit="git --git-dir=$HOME/.config/dotfiles.git --work-tree=$HOME"
 alias vim='nvim'
 alias attendance="web4u-attendance francm $WEB4U_ADM_PASSWORD"
 alias cal='cal -m'
+alias make='make -j$(nproc)'
 
 readonly FG_GREY="\e[1;90m"
 readonly FG_GREEN="\e[1;32m"
