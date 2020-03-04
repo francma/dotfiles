@@ -1,3 +1,5 @@
 [user]
 	email = me@martinfranc.eu
 	name = Martin Franc
+[core]
+	excludesfile = /home/francma/.gitignore
