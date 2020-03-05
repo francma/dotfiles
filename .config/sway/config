@@ -195,10 +195,10 @@ exec kanshi
 
 exec mkfifo $SWAYSOCK.wob && tail -f $SWAYSOCK.wob | wob
 
-seat seat0 xcursor_theme OpenZone_Ice_Slim
+seat seat0 xcursor_theme Adwaita
 exec_always {
     gsettings set org.gnome.desktop.interface font-name 'sans-serif 11'
     gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita-dark'
     gsettings set org.gnome.desktop.interface icon-theme 'Arc'
-    gsettings set org.gnome.desktop.interface cursor-theme 'OpenZone_Ice_Slim'
+    gsettings set org.gnome.desktop.interface cursor-theme 'Adwaita'
 }
