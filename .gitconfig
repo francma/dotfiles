@@ -3,3 +3,5 @@
 	name = Martin Franc
 [core]
 	excludesfile = /home/francma/.gitignore
+[merge]
+	tool = smerge
