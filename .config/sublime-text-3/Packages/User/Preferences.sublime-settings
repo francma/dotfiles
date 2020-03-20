@@ -1,7 +1,20 @@
 {
 	"animation_enabled": false,
+	"drag_text": false,
+	"enable_tab_scrolling": false,
+	"font_options":
+	[
+		"no_calt"
+	],
 	"font_size": 13,
 	"highlight_line": true,
+	"highlight_modified_tabs": true,
+	"ignored_packages":
+	[
+		"Vintage"
+	],
 	"line_numbers": false,
+	"overlay_scroll_bars": "enabled",
+	"show_tab_close_buttons": false,
 	"theme": "Adaptive.sublime-theme"
 }
