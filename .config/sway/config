@@ -13,6 +13,7 @@ floating_modifier $mod
 
 # remove title bars
 default_border pixel
+hide_edge_borders smart
 
 # volume controls
 bindsym XF86AudioRaiseVolume exec pamixer -ui 2 && pamixer --get-volume > $SWAYSOCK.wob
@@ -24,46 +25,46 @@ bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 bindsym XF86AudioStop exec playerctl stop
 
-bindsym XF86TouchpadToggle input "2:7:SynPS/2_Synaptics_TouchPad" events toggle
 bindsym XF86Battery exec swaylock -f -c "$accent"
 
 bindsym XF86MonBrightnessUp exec light -A 5 && light -G | cut -d'.' -f1 > /tmp/wobpipe
 bindsym XF86MonBrightnessDown exec light -U 5 && light -G | cut -d'.' -f1 > /tmp/wobpipe
 
-bindsym $mod+Grave exec makoctl dismiss --all
+bindsym $mod+q exec makoctl dismiss --all
 
-bindsym $mod+Return exec $TERMINAL
-bindsym $mod+b exec $BROWSER
+bindsym $mod+Return exec $TERMINAL -a foot-terminal
 bindsym $mod+t exec subl
 bindsym Print exec sh -c 'file="$HOME/Pictures/screenshots/$(date +"%Y-%m-%d_%H:%M:%S.png")" && grim "$file" && notify-send "Screenshot taken" && wl-copy < "$file"'
 
 bindsym $mod+Shift+q kill
 
 for_window [instance="phpstorm"] max_render_time 1
+for_window [app_id="foot-terminal"] max_render_time 1
 
 # program launcher
 for_window [app_id="^swaylauncher$"] floating enable, layout tabbed
-bindsym $mod+d exec st --name swaylauncher -- bash -c 'compgen -c | sort -u | fzf -e | xargs -r swaymsg -t command exec'
-bindsym $mod+Shift+d exec st --name swaylauncher -- bash -ic 'find ~/.password-store -printf "%P\n" | grep ".gpg$" | sed "s/.gpg$//" | sort | fzf -e | xargs -r pass show | head -1 | wl-copy -no'
-
-# slack, contents of open.bin = START\0$HOME\0slack
-bindsym $mod+F1 exec bash -c 'socat -u OPEN:$HOME/.config/Slack/open.bin UNIX-CONNECT:$HOME/.config/Slack/SS && while ! swaymsg [instance="slack"] fullscreen >/dev/null; do true; done'
+bindsym $mod+d exec $TERMINAL -a swaylauncher -- bash -c 'compgen -c | sort -u | fzf -e | xargs -r swaymsg -t command exec'
+bindsym $mod+Shift+d exec $TERMINAL -a swaylauncher -- bash -ic 'find ~/.password-store -printf "%P\n" | grep ".gpg$" | sed "s/.gpg$//" | sort | fzf -e | xargs -r pass show | head -1 | wl-copy -no && swaymsg [app_id=^swaylauncher$] resize set 200 50, move position 0 0 && echo copied to clipboard'
 
 # recent used desktop switch
 bindsym $mod+Tab workspace back_and_forth
 workspace_auto_back_and_forth yes
 
 # Make the currently focused window a scratchpad
-bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+Shift+Grave move scratchpad
 
 # Show the first scratchpad window
-bindsym $mod+minus scratchpad show
+bindsym $mod+Grave scratchpad show
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
+bindsym $mod+h focus left
 bindsym $mod+Down focus down
+bindsym $mod+j focus down
 bindsym $mod+Up focus up
+bindsym $mod+k focus up
 bindsym $mod+Right focus right
+bindsym $mod+l focus right
 
 # move focused window
 bindsym $mod+Shift+j move left
@@ -78,7 +79,7 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # split in horizontal orientation
-bindsym $mod+h split h
+bindsym $mod+b split h
 
 # split in vertical orientation
 bindsym $mod+v split v
@@ -122,10 +123,6 @@ bindsym $mod+Shift+7 move container to workspace 7
 bindsym $mod+Shift+8 move container to workspace 8
 bindsym $mod+Shift+9 move container to workspace 9
 
-# next workspace
-bindsym Control+Mod1+Right workspace next
-bindsym Control+Mod1+Left workspace prev
-
 # reload the configuration file
 bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
@@ -149,10 +146,12 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
+# class                   border bg text indicator child_border
 client.focused            $accent   $accent   $black   $black $accent
 client.focused_inactive   $grey     $grey     $accent  $black $grey
 client.unfocused          $grey     $grey     $white   $black $grey
 client.background         $black
+
 
 bar {
     font pango: monospace 11
@@ -165,11 +164,20 @@ bar {
         background #00000000
         focused_workspace $accent $accent $black
         inactive_workspace $black $black $white
+
     }
 }
 
 
 input 1:1:AT_Translated_Set_2_keyboard {
+    xkb_layout us,cz
+    xkb_variant ,qwerty
+    xkb_options grp:alt_shift_toggle,caps:escape
+    repeat_delay 200
+    repeat_rate 30
+}
+
+input 1241:355:USB-HID_Keyboard {
     xkb_layout us,cz
     xkb_variant ,qwerty
     xkb_options grp:alt_shift_toggle
@@ -192,6 +200,8 @@ exec swayidle -w before-sleep 'swaylock -f -c "$accent"'
 exec mako --font "monospace 11" --background-color "$black" --text-color "$white" --border-color "$accent"
 
 exec kanshi
+
+exec foot -s
 
 exec mkfifo $SWAYSOCK.wob && tail -f $SWAYSOCK.wob | wob
 

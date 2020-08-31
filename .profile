@@ -6,7 +6,7 @@ export LC_ALL=en_US.UTF-8
 export _JAVA_AWT_WM_NONREPARENTING=1
 export _SILENT_JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true'
 export BROWSER=firefox
-export TERMINAL=st
+export TERMINAL=footclient
 export MOZ_ENABLE_WAYLAND=1
 export LESS_TERMCAP_mb=$'\e[01;31m'       # begin blinking
 export LESS_TERMCAP_md=$'\e[01;38;5;74m'  # begin bold

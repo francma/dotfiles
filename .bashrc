@@ -29,6 +29,8 @@ shopt -s histappend
 # Save multi-line commands as one command
 shopt -s cmdhist
 
+set -o vi
+
 HISTSIZE= 
 HISTFILESIZE=
 
@@ -66,6 +68,7 @@ alias vim='nvim'
 alias attendance="web4u-attendance francm $WEB4U_ADM_PASSWORD"
 alias cal='cal -m'
 alias make='make -j$(nproc)'
+alias view='vim -R'
 
 readonly FG_GREY="\e[1;90m"
 readonly FG_GREEN="\e[1;32m"
@@ -83,6 +86,7 @@ git_branch() {
   [[ "${branch}" != "" ]] && printf "\001${FG_GREEN}\002[\001${FG_BLUE}\002git: ${branch}\001${FG_GREEN}\002]"
 }
 
+PROMPT_COMMAND="history -a;$PROMPT_COMMAND"
 PS1="\[${FG_GREY}\][\A]\$(last_command) \[${FG_GREEN}\][\[${FG_BLUE}\]\w\[${FG_GREEN}\]] \$(git_branch)\n\[${FG_BLUE}\]> \[${RESET}\]"
 
 lfcd () {
