@@ -78,16 +78,11 @@ readonly RESET="\e[0m"
 
 last_command() {
   local retcode="$?"
-  [[ $retcode != 0 ]] && printf " \001${FG_RED}\002[${retcode}]"
-}
-
-git_branch() {
-  local branch="$(git rev-parse --abbrev-ref HEAD 2>/dev/null)"
-  [[ "${branch}" != "" ]] && printf "\001${FG_GREEN}\002[\001${FG_BLUE}\002git: ${branch}\001${FG_GREEN}\002]"
+  [[ $retcode != 0 ]] && printf "\001${FG_RED}\002[${retcode}] "
 }
 
 PROMPT_COMMAND="history -a;$PROMPT_COMMAND"
-PS1="\[${FG_GREY}\][\A]\$(last_command) \[${FG_GREEN}\][\[${FG_BLUE}\]\w\[${FG_GREEN}\]] \$(git_branch)\n\[${FG_BLUE}\]> \[${RESET}\]"
+PS1="\$(last_command)\[${FG_GREEN}\][\[${FG_BLUE}\]\w\[${FG_GREEN}\]] \n\[${FG_BLUE}\]> \[${RESET}\]"
 
 lfcd () {
   tmp="$(mktemp)"
@@ -103,4 +98,8 @@ lfcd () {
   fi
 }
 
-bind '"\C-o":"lfcd\C-m"'
+if [ -f /usr/share/nnn/quitcd/quitcd.bash_zsh ]; then
+  source /usr/share/nnn/quitcd/quitcd.bash_zsh
+fi
+
+bind '"\C-o":"n\C-m"'
