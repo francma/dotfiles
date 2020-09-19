@@ -38,7 +38,7 @@ HISTFILESIZE=
 HISTCONTROL="erasedups:ignoreboth"
 
 # Don't record some commands
-export HISTIGNORE="&:[ ]*:exit:ll:ls:bg:fg:history:clear:lfcd:viso:web4u"
+export HISTIGNORE="&:[ ]*:exit:ll:ls:bg:fg:history:clear:lfcd:viso:web4u:poweroff"
 
 export GPG_TTY="$(tty)"
 
@@ -83,20 +83,6 @@ last_command() {
 
 PROMPT_COMMAND="history -a;$PROMPT_COMMAND"
 PS1="\$(last_command)\[${FG_GREEN}\][\[${FG_BLUE}\]\w\[${FG_GREEN}\]] \n\[${FG_BLUE}\]> \[${RESET}\]"
-
-lfcd () {
-  tmp="$(mktemp)"
-  lf -last-dir-path="$tmp" "$@"
-  if [ -f "$tmp" ]; then
-    dir="$(cat "$tmp")"
-    rm -f "$tmp"
-    if [ -d "$dir" ]; then
-      if [ "$dir" != "$(pwd)" ]; then
-        cd "$dir"
-      fi
-    fi
-  fi
-}
 
 if [ -f /usr/share/nnn/quitcd/quitcd.bash_zsh ]; then
   source /usr/share/nnn/quitcd/quitcd.bash_zsh
