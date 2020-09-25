@@ -30,6 +30,8 @@ shopt -s histappend
 shopt -s cmdhist
 
 set -o vi
+bind -m vi-command 'Control-l: clear-screen'
+bind -m vi-insert 'Control-l: clear-screen'
 
 HISTSIZE= 
 HISTFILESIZE=
@@ -38,7 +40,7 @@ HISTFILESIZE=
 HISTCONTROL="erasedups:ignoreboth"
 
 # Don't record some commands
-export HISTIGNORE="&:[ ]*:exit:ll:ls:bg:fg:history:clear:lfcd:viso:web4u:poweroff"
+export HISTIGNORE="&:[ ]*:exit:ll:ls:bg:fg:history:clear:lfcd:viso:web4u:poweroff:reboot"
 
 export GPG_TTY="$(tty)"
 
@@ -70,11 +72,11 @@ alias cal='cal -m'
 alias make='make -j$(nproc)'
 alias view='vim -R'
 
-readonly FG_GREY="\e[1;90m"
-readonly FG_GREEN="\e[1;32m"
-readonly FG_BLUE="\e[1;34m"
-readonly FG_RED="\e[1;31m"
-readonly RESET="\e[0m"
+FG_GREY="\e[1;90m"
+FG_GREEN="\e[1;32m"
+FG_BLUE="\e[1;34m"
+FG_RED="\e[1;31m"
+RESET="\e[0m"
 
 last_command() {
   local retcode="$?"
@@ -88,4 +90,4 @@ if [ -f /usr/share/nnn/quitcd/quitcd.bash_zsh ]; then
   source /usr/share/nnn/quitcd/quitcd.bash_zsh
 fi
 
-bind '"\C-o":"n\C-m"'
+bind '"\C-o":"n -d\C-m"'
