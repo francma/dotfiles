@@ -1,18 +1,23 @@
+let g:gruvbox_contrast_dark = 'hard'
+let g:lightline = { 'colorscheme': 'gruvbox' }
+
 call plug#begin()
 
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'junegunn/fzf.vim'
-Plug 'itchyny/lightline.vim'
 Plug 'editorconfig/editorconfig-vim'
-Plug 'nvim-treesitter/nvim-treesitter'
-Plug 'morhetz/gruvbox'
+Plug 'itchyny/lightline.vim'
+Plug 'junegunn/fzf.vim'
 Plug 'machakann/vim-highlightedyank'
-Plug 'tpope/vim-commentary'
+Plug 'mg979/vim-visual-multi'
+Plug 'morhetz/gruvbox'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'terminalnode/sway-vim-syntax'
+Plug 'tpope/vim-commentary'
+Plug 'psliwka/vim-smoothie'
 
 call plug#end()
 
-autocmd vimenter * colorscheme gruvbox
+colorscheme gruvbox
 
 set listchars=tab:→\ ,space:∙
 set list
@@ -22,6 +27,7 @@ set number relativenumber
 set tabstop=4
 set shiftwidth=4
 set nohlsearch
+set noshowmode
 
 nmap <silent>gd <Plug>(coc-definition)
 nmap <silent>gr <Plug>(coc-references)

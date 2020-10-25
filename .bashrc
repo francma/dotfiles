@@ -80,11 +80,16 @@ RESET="\e[0m"
 
 last_command() {
   local retcode="$?"
-  [[ $retcode != 0 ]] && printf "\001${FG_RED}\002[${retcode}] "
+  [ $retcode != 0 ] && printf "\001${FG_RED}\002[${retcode}] "
+}
+
+git_branch() {
+  local branch="$(git branch --show-current 2>/dev/null)"
+  [ "${branch}" != "" ] && printf "\001${FG_GREEN}\002[\001${FG_BLUE}\002git: ${branch}\001${FG_GREEN}\002]"
 }
 
 PROMPT_COMMAND="history -a;$PROMPT_COMMAND"
-PS1="\$(last_command)\[${FG_GREEN}\][\[${FG_BLUE}\]\w\[${FG_GREEN}\]] \n\[${FG_BLUE}\]> \[${RESET}\]"
+PS1="\$(last_command)\[${FG_GREEN}\][\[${FG_BLUE}\]\w\[${FG_GREEN}\]] \$(git_branch)\n\[${FG_BLUE}\]> \[${RESET}\]"
 
 if [ -f /usr/share/nnn/quitcd/quitcd.bash_zsh ]; then
   source /usr/share/nnn/quitcd/quitcd.bash_zsh

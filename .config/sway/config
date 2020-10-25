@@ -1,10 +1,10 @@
 set $mod Mod4
 
-# colors
-set $accent #396FE2
-set $white #ECEFF1
-set $black #212121
-set $grey #313131
+set $black #1d2021
+set $wheat #ebdbb2
+set $darkseagreen #689d6a
+set $darkslategray #32302f
+set $firebrick #cc241d
 
 font pango:monospace 11
 
@@ -57,26 +57,16 @@ bindsym $mod+Shift+Grave move scratchpad
 bindsym $mod+Grave scratchpad show
 
 # alternatively, you can use the cursor keys:
-bindsym $mod+Left focus left
 bindsym $mod+h focus left
-bindsym $mod+Down focus down
 bindsym $mod+j focus down
-bindsym $mod+Up focus up
 bindsym $mod+k focus up
-bindsym $mod+Right focus right
 bindsym $mod+l focus right
 
 # move focused window
-bindsym $mod+Shift+j move left
-bindsym $mod+Shift+k move down
-bindsym $mod+Shift+l move up
-bindsym $mod+Shift+semicolon move right
-
-# alternatively, you can use the cursor keys:
-bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Down move down
-bindsym $mod+Shift+Up move up
-bindsym $mod+Shift+Right move right
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
 
 # split in horizontal orientation
 bindsym $mod+b split h
@@ -132,39 +122,35 @@ bindsym $mod+Shift+e exit
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
-    bindsym j resize shrink width 10 px or 10 ppt
-    bindsym k resize grow height 10 px or 10 ppt
-    bindsym l resize shrink height 10 px or 10 ppt
-    bindsym semicolon resize grow width 10 px or 10 ppt
-    bindsym Left resize shrink width 10 px or 10 ppt
-    bindsym Down resize grow height 10 px or 10 ppt
-    bindsym Up resize shrink height 10 px or 10 ppt
-    bindsym Right resize grow width 10 px or 10 ppt
+    bindsym h resize shrink width 10 px or 10 ppt
+    bindsym j resize grow height 10 px or 10 ppt
+    bindsym k resize shrink height 10 px or 10 ppt
+    bindsym l resize grow width 10 px or 10 ppt
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
 
 bindsym $mod+r mode "resize"
 
-# class                   border bg text indicator child_border
-client.focused            $accent   $accent   $black   $black $accent
-client.focused_inactive   $grey     $grey     $accent  $black $grey
-client.unfocused          $grey     $grey     $white   $black $grey
-client.background         $black
-
+# class                 border|backgr|text|indicator|child_border
+client.focused          $darkseagreen $darkseagreen $black $black
+client.focused_inactive $black $darkslategray $wheat $black
+client.unfocused        $black $darkslategray $wheat $black
+client.urgent           $firebrick $firebrick $wheat $black
 
 bar {
-    font pango: monospace 11
+    font pango: monospace 10
     status_command i3blocks -c ~/.config/i3/i3blocks.conf
     position bottom
     tray_output none
 
     colors {
-        statusline $white
-        background #00000000
-        focused_workspace $accent $accent $black
-        inactive_workspace $black $black $white
-
+        background $black
+        statusline $wheat
+        focused_workspace    $darkseagreen $darkseagreen $black
+        inactive_workspace   $black $black $wheat
+        active_workspace     $darkslategray $darkslategray $black
+        urgent_workspace     $firebrick $firebrick $black
     }
 }
 
@@ -195,9 +181,9 @@ input * {
 
 exec swaybg -c "$black"
 
-exec swayidle -w before-sleep 'swaylock -f -c "$accent"'
+exec swayidle -w before-sleep 'swaylock -f -c "$firebrick"'
 
-exec mako --font "monospace 11" --background-color "$black" --text-color "$white" --border-color "$accent"
+exec mako --font "monospace 11" --background-color "$black" --text-color "$wheat" --border-color "$darkseagreen"
 
 exec kanshi
 
