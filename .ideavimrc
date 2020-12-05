@@ -1,0 +1,30 @@
+let mapleader=","
+
+set number relativenumber
+set commentary
+set highlightedyank
+set multiple-cursors
+set idearefactormode keep
+set ideajoin true
+
+nmap gd <Action>(GotoDeclaration)
+nmap gr <Action>(FindUsages)
+nmap gi <Action>(GotoImplementation)
+
+nmap <leader>rn <Action>(RenameElement)
+
+nmap <leader>f <Action>(ReformatCode)
+xmap <leader>f <Action>(ReformatCode)
+
+map <up> <nop>
+map <down> <nop>
+map <left> <nop>
+map <right> <nop>
+
+imap <up> <nop>
+imap <down> <nop>
+imap <left> <nop>
+imap <right> <nop>
+
+map <Del> <nop>
+imap <Del> <nop>

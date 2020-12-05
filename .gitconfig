@@ -8,6 +8,6 @@
 [pull]
 	rebase = false
 [log]
-	date = relative
+	date = format:%Y-%m-%d %H:%M
 [format]
-	pretty = format:%C(auto,yellow)%h%C(auto,magenta)% G? %C(auto,blue)%>(12,trunc)%ad %C(auto,green)%<(15,trunc)%aN%C(auto,reset)%s%C(auto,red)% gD% D
+	pretty = format:%C(auto,yellow)%h%C(auto,magenta)%  %C(auto,blue)%ad %C(auto,green)%<(15,trunc)%aN%C(auto,reset)%s%C(auto,red)% gD% D

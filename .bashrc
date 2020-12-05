@@ -63,6 +63,10 @@ if [ -x /usr/bin/dircolors ]; then
   alias egrep='egrep -i --color=auto'
 fi
 
+upload_terminfo() {
+	infocmp | ssh $@ tic -x -o \~/.terminfo /dev/stdin
+}
+
 alias sudo='sudo -E '
 alias ll='ls -alh --group-directories-first'
 alias cgit="git --git-dir=$HOME/.config/dotfiles.git --work-tree=$HOME"

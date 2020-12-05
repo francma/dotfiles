@@ -13,7 +13,6 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'terminalnode/sway-vim-syntax'
 Plug 'tpope/vim-commentary'
-Plug 'psliwka/vim-smoothie'
 
 call plug#end()
 
