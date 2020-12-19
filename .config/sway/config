@@ -156,36 +156,22 @@ bar {
     }
 }
 
-
-input 1:1:AT_Translated_Set_2_keyboard {
-    xkb_layout us,cz
-    xkb_variant ,qwerty
-    xkb_options grp:alt_shift_toggle,caps:escape
+input type:keyboard {
+    # xkb_layout us,cz
+    # xkb_variant ,qwerty
+    # xkb_options grp:alt_shift_toggle,caps:escape
     repeat_delay 200
     repeat_rate 30
 }
 
-input 1241:355:USB-HID_Keyboard {
-    xkb_layout us,cz
-    xkb_variant ,qwerty
-    xkb_options grp:alt_shift_toggle
+input 0:0:virtual_keyboard {
     repeat_delay 200
-    repeat_rate 30
+    repeat_rate 20
 }
+
 input 1241:355:USB-HID_Keyboard_Mouse {
     scroll_factor 2.5
-}
-
-input * {
     accel_profile flat
-}
-
-input 9610:30:HAILUCK_CO.,LTD_USB_KEYBOARD {
-    xkb_layout us,cz
-    xkb_variant ,qwerty
-    xkb_options grp:alt_shift_toggle,caps:escape
-    repeat_delay 200
-    repeat_rate 30
 }
 
 input 9610:30:HAILUCK_CO.,LTD_USB_KEYBOARD_Touchpad {
