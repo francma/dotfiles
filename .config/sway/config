@@ -172,13 +172,26 @@ input 1241:355:USB-HID_Keyboard {
     repeat_delay 200
     repeat_rate 30
 }
-
 input 1241:355:USB-HID_Keyboard_Mouse {
     scroll_factor 2.5
 }
 
 input * {
     accel_profile flat
+}
+
+input 9610:30:HAILUCK_CO.,LTD_USB_KEYBOARD {
+    xkb_layout us,cz
+    xkb_variant ,qwerty
+    xkb_options grp:alt_shift_toggle,caps:escape
+    repeat_delay 200
+    repeat_rate 30
+}
+
+input 9610:30:HAILUCK_CO.,LTD_USB_KEYBOARD_Touchpad {
+    tap enabled
+    accel_profile flat
+    pointer_accel 1
 }
 
 exec swaybg -c "$black"
