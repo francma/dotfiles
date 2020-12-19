@@ -163,7 +163,7 @@ bar {
 
 input type:keyboard {
     xkb_layout us,cz
-    xkb_variant ,qwerty
+    xkb_variant intl,qwerty
     xkb_options grp:alt_shift_toggle,caps:escape
     repeat_delay 200
     repeat_rate 30
