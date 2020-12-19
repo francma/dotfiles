@@ -46,6 +46,11 @@ for_window [app_id="^swaylauncher$"] floating enable, layout tabbed
 bindsym $mod+d exec footclient --app-id swaylauncher bash -c 'compgen -c | sort -u | fzf -e | xargs -r swaymsg -t command exec'
 bindsym $mod+Shift+d exec footclient --app-id swaylauncher bash -ic 'find ~/.password-store -printf "%P\n" | grep ".gpg$" | sed "s/.gpg$//" | sort | fzf -e | xargs -r pass show | head -1 | wl-copy -no && swaymsg [app_id=^swaylauncher$] resize set 200 50, move position 0 0 && echo copied to clipboard'
 
+mode passthrough {
+	bindsym $mod+Pause mode default
+}
+bindsym $mod+Pause mode passthrough
+
 # recent used desktop switch
 bindsym $mod+Tab workspace back_and_forth
 workspace_auto_back_and_forth yes
