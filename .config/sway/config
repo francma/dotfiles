@@ -13,7 +13,6 @@ floating_modifier $mod
 
 # remove title bars
 default_border pixel
-hide_edge_borders smart
 
 # volume controls
 bindsym XF86AudioRaiseVolume exec pamixer -ui 2 && pamixer --get-volume > $SWAYSOCK.wob
@@ -38,8 +37,11 @@ bindsym Print exec sh -c 'file="$HOME/Pictures/screenshots/$(date +"%Y-%m-%d_%H:
 
 bindsym $mod+Shift+q kill
 
-for_window [instance="phpstorm"] max_render_time 1
 for_window [app_id="foot-terminal"] max_render_time 1
+for_window [class="jetbrains-(.*)" title="Go to Line/Column"] floating enable
+for_window [class="jetbrains-(.*)" title="Rename"] floating enable
+for_window [class="jetbrains-(.*)" title="Open Project"] floating enable
+for_window [class="jetbrains-(.*)" title="win0"] floating enable
 
 # program launcher
 for_window [app_id="^swaylauncher$"] floating enable, layout tabbed
@@ -133,7 +135,7 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 # class                 border|backgr|text|indicator|child_border
-client.focused          $darkseagreen $darkseagreen $black $black
+client.focused          $black $darkseagreen $black $black
 client.focused_inactive $black $darkslategray $wheat $black
 client.unfocused        $black $darkslategray $wheat $black
 client.urgent           $firebrick $firebrick $wheat $black
@@ -171,13 +173,13 @@ input 1241:355:USB-HID_Keyboard {
     repeat_rate 30
 }
 
+input 1241:355:USB-HID_Keyboard_Mouse {
+    scroll_factor 2.5
+}
+
 input * {
     accel_profile flat
 }
-
-#input 2:7:SynPS/2_Synaptics_TouchPad {
-#    tap enabled
-#}
 
 exec swaybg -c "$black"
 

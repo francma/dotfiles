@@ -10,7 +10,6 @@ Plug 'machakann/vim-highlightedyank'
 Plug 'mg979/vim-visual-multi'
 Plug 'morhetz/gruvbox'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'terminalnode/sway-vim-syntax'
 Plug 'tpope/vim-commentary'
 
