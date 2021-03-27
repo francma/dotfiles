@@ -1,3 +1,3 @@
 . ~/.profile
-. ~/.profile-secret
+[ -f ~/.profile-secret ] && . ~/.profile-secret
 . ~/.bashrc
