@@ -33,7 +33,7 @@ bindsym $mod+q exec makoctl dismiss --all
 
 bindsym $mod+Return exec footclient
 bindsym $mod+t exec subl
-bindsym Print exec sh -c 'file="$HOME/Pictures/screenshots/$(date +"%Y-%m-%d_%H:%M:%S.png")" && grim "$file" && notify-send "Screenshot taken" && wl-copy < "$file"'
+bindsym Print exec grim -g "$(slurp)" - | wl-copy 
 
 bindsym $mod+Shift+q kill
 
@@ -145,27 +145,11 @@ client.focused_inactive $black $darkslategray $wheat $black
 client.unfocused        $black $darkslategray $wheat $black
 client.urgent           $firebrick $firebrick $wheat $black
 
-bar {
-    font pango: monospace 10
-    status_command i3blocks -c ~/.config/i3/i3blocks.conf
-    position bottom
-    tray_output none
-
-    colors {
-        background $black
-        statusline $wheat
-        focused_workspace    $darkseagreen $darkseagreen $black
-        inactive_workspace   $black $black $wheat
-        active_workspace     $darkslategray $darkslategray $black
-        urgent_workspace     $firebrick $firebrick $black
-    }
-}
-
 input type:keyboard {
-    xkb_layout cz
-    xkb_variant coder
-    xkb_options caps:escape
-    repeat_delay 200
+    xkb_layout us,cz
+    xkb_variant ,qwerty
+    xkb_options grp:alt_shift_toggle,caps:escape
+    repeat_delay 250
     repeat_rate 30
 }
 
@@ -184,6 +168,8 @@ input 9610:30:HAILUCK_CO.,LTD_USB_KEYBOARD_Touchpad {
     accel_profile flat
     pointer_accel 1
 }
+
+exec yambar
 
 exec swaybg -c "$black"
 

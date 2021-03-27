@@ -29,9 +29,9 @@ shopt -s histappend
 # Save multi-line commands as one command
 shopt -s cmdhist
 
-set -o vi
-bind -m vi-command 'Control-l: clear-screen'
-bind -m vi-insert 'Control-l: clear-screen'
+# bind -m vi-command 'Control-l: clear-screen'
+# bind -m vi-insert 'Control-l: clear-screen'
+# bind "set keyseq-timeout 10"
 
 HISTSIZE= 
 HISTFILESIZE=
@@ -67,7 +67,7 @@ upload_terminfo() {
 	infocmp | ssh $@ tic -x -o \~/.terminfo /dev/stdin
 }
 
-alias sudo='sudo -E '
+alias doas='doas '
 alias ll='ls -alh --group-directories-first'
 alias cgit="git --git-dir=$HOME/.config/dotfiles.git --work-tree=$HOME"
 alias vim='nvim'
@@ -75,10 +75,14 @@ alias attendance="web4u-attendance francm $WEB4U_ADM_PASSWORD"
 alias cal='cal -m'
 alias make='make -j$(nproc)'
 alias view='vim -R'
+alias ssh='TERM=xterm-256color ssh'
+alias wiki='nvim -c ":VimwikiIndex"'
 
 FG_GREY="\e[1;90m"
 FG_GREEN="\e[1;32m"
 FG_BLUE="\e[1;34m"
+FG_PURPLE="\e[1;35m"
+FG_CYAN="\e[1;36m"
 FG_RED="\e[1;31m"
 RESET="\e[0m"
 
@@ -92,8 +96,17 @@ git_branch() {
   [ "${branch}" != "" ] && printf "\001${FG_GREEN}\002[\001${FG_BLUE}\002git: ${branch}\001${FG_GREEN}\002]"
 }
 
+bind "set show-mode-in-prompt on"
+bind "set vi-ins-mode-string \001${FG_BLUE}\002>\001${RESET}\002"
+bind "set vi-cmd-mode-string \001${FG_BLUE}\002:\001${RESET}\002"
+
 PROMPT_COMMAND="history -a;$PROMPT_COMMAND"
-PS1="\$(last_command)\[${FG_GREEN}\][\[${FG_BLUE}\]\w\[${FG_GREEN}\]] \$(git_branch)\n\[${FG_BLUE}\]> \[${RESET}\]"
+
+PS1="\$(last_command)"
+PS1="${PS1}\[${FG_GREEN}\][\[${FG_BLUE}\]\u\[${FG_CYAN}\]@\h\[${FG_GREEN}\]]"
+PS1="${PS1}\[${FG_GREEN}\][\[${FG_BLUE}\]\w\[${FG_GREEN}\]]"
+PS1="${PS1} \$(git_branch)\n"
+PS1="${PS1} \[${RESET}\]"
 
 if [ -f /usr/share/nnn/quitcd/quitcd.bash_zsh ]; then
   source /usr/share/nnn/quitcd/quitcd.bash_zsh

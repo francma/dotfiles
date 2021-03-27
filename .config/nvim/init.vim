@@ -12,6 +12,8 @@ Plug 'morhetz/gruvbox'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'terminalnode/sway-vim-syntax'
 Plug 'tpope/vim-commentary'
+Plug 'Glench/Vim-Jinja2-Syntax'
+Plug 'vimwiki/vimwiki'
 
 call plug#end()
 
@@ -26,6 +28,8 @@ set tabstop=4
 set shiftwidth=4
 set nohlsearch
 set noshowmode
+
+let mapleader=","
 
 nmap <silent>gd <Plug>(coc-definition)
 nmap <silent>gr <Plug>(coc-references)
@@ -44,3 +48,6 @@ imap <right> <nop>
 map <Del> <nop>
 
 imap <Del> <nop>
+
+let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.md'}]
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab

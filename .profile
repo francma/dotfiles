@@ -1,4 +1,4 @@
-export PATH=$PATH:~/bin:~/.config/composer/vendor/bin:~/.local/bin
+export PATH=$PATH:~/bin:~/.config/composer/vendor/bin:~/.local/bin:~/projects/carvago/backend-monorepo/bin
 export EDITOR=nvim
 export TIME_STYLE=long
 export LC_CTYPE=en_US.UTF-8
@@ -8,12 +8,9 @@ export _SILENT_JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=tru
 export BROWSER=firefox
 export TERMINAL=foot-terminal
 export MOZ_ENABLE_WAYLAND=1
+export MOZ_DISABLE_RDD_SANDBOX=1
 export XDG_CURRENT_DESKTOP=sway
 export XDG_SESSION_TYPE=wayland
-export LESS_TERMCAP_mb=$'\e[01;31m'       # begin blinking
-export LESS_TERMCAP_md=$'\e[01;38;5;74m'  # begin bold
-export LESS_TERMCAP_me=$'\e[0m'           # end mode
-export LESS_TERMCAP_se=$'\e[0m'           # end standout-mode
-export LESS_TERMCAP_so=$'\e[38;5;246m'    # begin standout-mode - info box
-export LESS_TERMCAP_ue=$'\e[0m'           # end underline
-export LESS_TERMCAP_us=$'\e[04;38;5;146m' # begin underline
+export MANPAGER="nvim -c 'set ft=man' -"
+export TEAS_PHP_IDE_CONFIG="serverName=docker"
+

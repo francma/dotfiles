@@ -1,0 +1,60 @@
+bar:
+  height: 24
+  location: bottom
+  background: 1d2021ff
+  foreground: ebdbb2ff
+  font: monospace:pixelsize=14
+
+  right:
+    - clock:
+        date-format: "%d.%m"
+        content:
+          - string: 
+              text: "{date}"
+              right-margin: 6
+          - string: 
+              text: "{time}"
+              right-margin: 3
+  center:
+    - i3:
+        content:
+          current:
+            string: 
+              text: "{title}"
+          "":
+            string:
+              text: ""
+  left:
+    - i3:
+        sort: ascending
+        content:
+          "":
+            map:
+              tag: state
+              default: 
+                string: 
+                  text: "{name}"
+                  margin: 6
+              values:
+                focused:
+                  string:
+                    text: "{name}"
+                    margin: 6
+                    foreground: 1d2021ff
+                    deco:
+                      stack:
+                        - background: {color: 689d6aff}
+          current:
+            map:
+              tag: mode
+              values:
+                resize:
+                  string:
+                    text: "resize"
+                    margin: 6
+                    foreground: 1d2021ff
+                    deco:
+                      stack:
+                        - background: {color: 689d6aff}
+
+
