@@ -33,11 +33,11 @@ shopt -s cmdhist
 # bind -m vi-insert 'Control-l: clear-screen'
 # bind "set keyseq-timeout 10"
 
-HISTSIZE= 
-HISTFILESIZE=
+export HISTSIZE= 
+export HISTFILESIZE=
 
 # Avoid duplicate entries
-HISTCONTROL="erasedups:ignoreboth"
+export HISTCONTROL="erasedups:ignoreboth"
 
 # Don't record some commands
 export HISTIGNORE="&:[ ]*:exit:ll:ls:bg:fg:history:clear:lfcd:viso:web4u:poweroff:reboot"
