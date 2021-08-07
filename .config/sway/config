@@ -1,10 +1,12 @@
 set $mod Mod4
 
-set $black #1d2021
-set $wheat #ebdbb2
-set $darkseagreen #689d6a
-set $darkslategray #32302f
-set $firebrick #cc241d
+set $WOBSOCK $XDG_RUNTIME_DIR/wob.sock
+
+set $black #21252b
+set $foreground #abb2bf
+set $accent #61afef
+set $darkslategray #5c6370
+set $urgent #e06c75
 
 font pango:monospace 11
 
@@ -12,19 +14,23 @@ font pango:monospace 11
 floating_modifier $mod
 
 # remove title bars
-default_border pixel
+default_border pixel 4
 
 # volume controls
-bindsym XF86AudioRaiseVolume exec pamixer -ui 2 && pamixer --get-volume > $SWAYSOCK.wob
-bindsym XF86AudioLowerVolume exec pamixer -ud 2 && pamixer --get-volume > $SWAYSOCK.wob
-bindsym XF86AudioMute exec pamixer --toggle-mute && ( pamixer --get-mute && echo 0 > $SWAYSOCK.wob ) || pamixer --get-volume > $SWAYSOCK.wob
+bindsym XF86AudioRaiseVolume exec pamixer -ui 2 && pamixer --get-volume > $WOBSOCK
+bindsym XF86AudioLowerVolume exec pamixer -ud 2 && pamixer --get-volume > $WOBSOCK
+bindsym XF86AudioMute exec pamixer --toggle-mute && ( pamixer --get-mute && echo 0 > $WOBSOCK ) || pamixer --get-volume > $WOBSOCK
+
+# ddcutil
+bindsym $mod+n exec doas /usr/bin/ddcutil --noverify --less-sleep --sleep-multiplier .1 setvcp 10 - 5
+bindsym $mod+m exec doas /usr/bin/ddcutil --noverify --less-sleep --sleep-multiplier .1 setvcp 10 + 5
 
 bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 bindsym XF86AudioStop exec playerctl stop
 
-bindsym XF86Battery exec swaylock -f -c "$accent"
+bindsym XF86Battery exec swaylock -f -c "$black"
 
 bindsym XF86MonBrightnessUp exec light -A 5 && light -G | cut -d'.' -f1 > /tmp/wobpipe
 bindsym XF86MonBrightnessDown exec light -U 5 && light -G | cut -d'.' -f1 > /tmp/wobpipe
@@ -140,10 +146,10 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 # class                 border|backgr|text|indicator|child_border
-client.focused          $black $darkseagreen $black $black
-client.focused_inactive $black $darkslategray $wheat $black
-client.unfocused        $black $darkslategray $wheat $black
-client.urgent           $firebrick $firebrick $wheat $black
+client.focused          $black $accent $black $black
+client.focused_inactive $black $darkslategray $foreground $black
+client.unfocused        $black $darkslategray $foreground $black
+client.urgent           $urgent $urgent $foreground $black
 
 input type:keyboard {
     xkb_layout us,cz
@@ -171,20 +177,18 @@ input 9610:30:HAILUCK_CO.,LTD_USB_KEYBOARD_Touchpad {
 
 exec yambar
 
-output * bg $black solid_color
+output * bg "$black" solid_color
 
-exec swayidle -w before-sleep 'swaylock -f -c "$firebrick"'
+exec swayidle -w before-sleep 'swaylock -f -c "$urgent"'
 
-exec mako --font "monospace 11" --background-color "$black" --text-color "$wheat" --border-color "$darkseagreen"
+exec mako --font "monospace 11" --background-color "$black" --text-color "$foreground" --border-color "$accent"
 
 exec foot -s
-
-exec mkfifo $SWAYSOCK.wob && tail -f $SWAYSOCK.wob | wob
 
 seat seat0 xcursor_theme Adwaita
 exec_always {
     gsettings set org.gnome.desktop.interface font-name 'sans-serif 11'
-    gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita-dark'
+    gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita'
     gsettings set org.gnome.desktop.interface icon-theme 'Arc'
     gsettings set org.gnome.desktop.interface cursor-theme 'Adwaita'
 }

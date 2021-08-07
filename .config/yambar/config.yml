@@ -1,8 +1,8 @@
 bar:
   height: 24
   location: bottom
-  background: 1d2021ff
-  foreground: ebdbb2ff
+  background: 21252bff
+  foreground: abb2bfff
   font: monospace:pixelsize=14
 
   right:
@@ -40,10 +40,10 @@ bar:
                   string:
                     text: "{name}"
                     margin: 6
-                    foreground: 1d2021ff
+                    foreground: 21252bff
                     deco:
                       stack:
-                        - background: {color: 689d6aff}
+                        - background: {color: 61afefff}
           current:
             map:
               tag: mode
@@ -52,9 +52,9 @@ bar:
                   string:
                     text: "resize"
                     margin: 6
-                    foreground: 1d2021ff
+                    foreground: 21252bff
                     deco:
                       stack:
-                        - background: {color: 689d6aff}
+                        - background: {color: 98c379ff}
 
 

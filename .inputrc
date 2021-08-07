@@ -78,6 +78,7 @@ Control-l: clear-screen
 "G": end-of-history
 ?: reverse-search-history
 /: forward-search-history
+"oo": "a$(git branch --show-current)"
 
 set keymap vi-insert
 Control-l: clear-screen

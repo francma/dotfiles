@@ -113,3 +113,4 @@ if [ -f /usr/share/nnn/quitcd/quitcd.bash_zsh ]; then
 fi
 
 bind '"\C-o":"n -d\C-m"'
+bind '"\C-b":"git checkout $(git branch | fzf)\C-m"'

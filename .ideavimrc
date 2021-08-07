@@ -9,8 +9,9 @@ set ideajoin true
 
 nmap gd <Action>(GotoDeclaration)
 nmap gr <Action>(FindUsages)
-nmap gi <Action>(GotoImplementation)
+nmap gi <Action>(QuickImplementations)
 nmap gv <Action>(opennInSplittedTab)
+nmap gp <Action>(ParameterInfo)
 
 nmap <leader>rn <Action>(RenameElement)
 
@@ -21,18 +22,5 @@ map <leader>a <Action>(Annotate)
 
 map <leader>tt <Action>(RunClass)
 map <leader>qq <Action>(HideActiveWindow)
-
-map <up> <nop>
-map <down> <nop>
-map <left> <nop>
-map <right> <nop>
-
-imap <up> <nop>
-imap <down> <nop>
-imap <left> <nop>
-imap <right> <nop>
-
-map <Del> <nop>
-imap <Del> <nop>
 
 set ideastatusicon=gray
