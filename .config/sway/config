@@ -2,11 +2,11 @@ set $mod Mod4
 
 set $WOBSOCK $XDG_RUNTIME_DIR/wob.sock
 
-set $black #21252b
-set $foreground #abb2bf
-set $accent #61afef
-set $darkslategray #5c6370
-set $urgent #e06c75
+set $black #2f383e
+set $foreground #d3c6aa
+set $accent #7fbbb3
+set $darkslategray #4b565c
+set $urgent #e67e80
 
 font pango:monospace 11
 
@@ -48,6 +48,7 @@ for_window [class="jetbrains-(.*)" title="Go to Line/Column"] floating enable
 for_window [class="jetbrains-(.*)" title="Rename"] floating enable
 for_window [class="jetbrains-(.*)" title="Open Project"] floating enable
 for_window [class="jetbrains-(.*)" title="win0"] floating enable
+for_window [app_id="firefox" title="Firefox — Sharing Indicator"] kill
 
 # program launcher
 for_window [app_id="^swaylauncher$"] floating enable, layout tabbed
@@ -185,6 +186,8 @@ exec mako --font "monospace 11" --background-color "$black" --text-color "$foreg
 
 exec foot -s
 
+exec wlsunset -l 50 -L 14
+
 seat seat0 xcursor_theme Adwaita
 exec_always {
     gsettings set org.gnome.desktop.interface font-name 'sans-serif 11'
@@ -193,4 +196,5 @@ exec_always {
     gsettings set org.gnome.desktop.interface cursor-theme 'Adwaita'
 }
 
+exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
 exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK

@@ -1,8 +1,8 @@
 bar:
   height: 24
   location: bottom
-  background: 21252bff
-  foreground: abb2bfff
+  background: 2b3339ff
+  foreground: d3c6aaff
   font: monospace:pixelsize=14
 
   right:
@@ -40,10 +40,10 @@ bar:
                   string:
                     text: "{name}"
                     margin: 6
-                    foreground: 21252bff
+                    foreground: d3c6aaff
                     deco:
                       stack:
-                        - background: {color: 61afefff}
+                        - background: {color: 4b565cff}
           current:
             map:
               tag: mode

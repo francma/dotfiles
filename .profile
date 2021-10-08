@@ -2,14 +2,16 @@ export PATH=$PATH:~/bin:~/.config/composer/vendor/bin:~/.local/bin:~/projects/ca
 export EDITOR=nvim
 export TIME_STYLE=long
 export LC_CTYPE=en_US.UTF-8
+export LC_TIME=en_DK.UTF-8
 export LC_ALL=en_US.UTF-8
 export _JAVA_AWT_WM_NONREPARENTING=1
 export _SILENT_JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true'
 export TERMINAL=foot-terminal
 export XDG_CURRENT_DESKTOP=sway
 export XDG_SESSION_TYPE=wayland
-export MANPAGER="nvim -c 'set ft=man' -"
+export MANPAGER="nvim +Man!"
 export TEAS_PHP_IDE_CONFIG="serverName=docker"
+export TEAS_XDEBUG_CONFIG=""
 export MOZ_ENABLE_WAYLAND=1
 export MOZ_DISABLE_RDD_SANDBOX=1
 export LIBSEAT_BACKEND=logind
