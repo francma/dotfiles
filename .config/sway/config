@@ -170,6 +170,14 @@ input 1241:355:USB-HID_Keyboard_Mouse {
     accel_profile flat
 }
 
+input 2:14:ETPS/2_Elantech_Touchpad {
+    events disabled
+}
+
+input 2:14:ETPS/2_Elantech_Trackpoint {
+    accel_profile flat
+}
+
 input 9610:30:HAILUCK_CO.,LTD_USB_KEYBOARD_Touchpad {
     tap enabled
     accel_profile flat

@@ -11,16 +11,17 @@ nmap gd <Action>(GotoDeclaration)
 nmap gr <Action>(FindUsages)
 nmap gi <Action>(QuickImplementations)
 nmap gv <Action>(opennInSplittedTab)
-nmap gp <Action>(ParameterInfo)
 
 nmap <leader>rn <Action>(RenameElement)
 
-nmap <leader>f <Action>(ReformatCode)
-xmap <leader>f <Action>(ReformatCode)
+nmap <leader>rf <Action>(ReormatCode)
+xmap <leader>rf <Action>(ReformatCode)
 
-map <leader>a <Action>(Annotate)
+nmap <leader>ss <Action>(SearchEverywhere)
+nmap <leader>sf <Action>(GotoFile)
+nmap <leader>sc <Action>(GotoClass)
+nmap <leader>sa <Action>(GotoAction)
 
 map <leader>tt <Action>(RunClass)
-map <leader>qq <Action>(HideActiveWindow)
 
 set ideastatusicon=gray
