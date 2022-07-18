@@ -3,6 +3,7 @@
 	name = Martin Franc
 [core]
 	excludesfile = /home/francma/.gitignore
+	pager = delta
 [merge]
 	tool = smerge
 [pull]
@@ -11,3 +12,14 @@
 	date = format:%Y-%m-%d %H:%M
 [format]
 	pretty = format:%C(auto,yellow)%h%C(auto,magenta)%  %C(auto,blue)%ad %C(auto,green)%<(15,trunc)%aN%C(auto,reset)%s%C(auto,red)% gD% D
+[interactive]
+	diffFilter = delta --color-only
+
+[delta]
+	navigate = true  # use n and N to move between diff sections
+
+[merge]
+	conflictstyle = diff3
+
+[diff]
+	colorMoved = default

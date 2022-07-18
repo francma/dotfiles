@@ -6,6 +6,11 @@ bar:
   font: monospace:pixelsize=14
 
   right:
+    - battery:
+        name: BAT0
+        content:
+          string:
+            text: "BAT[{capacity}] "
     - clock:
         date-format: "%d.%m"
         content:

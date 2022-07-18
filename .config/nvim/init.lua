@@ -10,7 +10,7 @@ require("paq-nvim")({
   "nvim-treesitter/nvim-treesitter",
   "sainnhe/everforest",
   "neovim/nvim-lspconfig",
-  "dstein64/nvim-scrollview",
+  "petertriho/nvim-scrollbar",
 
   "nvim-lua/plenary.nvim",
   "nvim-telescope/telescope.nvim",

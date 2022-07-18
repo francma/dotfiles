@@ -38,12 +38,10 @@ bindsym XF86MonBrightnessDown exec light -U 5 && light -G | cut -d'.' -f1 > /tmp
 bindsym $mod+q exec makoctl dismiss --all
 
 bindsym $mod+Return exec footclient
-bindsym $mod+t exec subl
 bindsym Print exec grim -g "$(slurp)" - | wl-copy 
 
 bindsym $mod+Shift+q kill
 
-for_window [app_id="foot-terminal"] max_render_time 1
 for_window [class="jetbrains-(.*)" title="Go to Line/Column"] floating enable
 for_window [class="jetbrains-(.*)" title="Rename"] floating enable
 for_window [class="jetbrains-(.*)" title="Open Project"] floating enable
@@ -52,13 +50,8 @@ for_window [app_id="firefox" title="Firefox — Sharing Indicator"] kill
 
 # program launcher
 for_window [app_id="^swaylauncher$"] floating enable, layout tabbed
-bindsym $mod+d exec footclient --app-id swaylauncher bash -c 'compgen -c | sort -u | fzf -e | xargs -r swaymsg -t command exec'
-bindsym $mod+Shift+d exec footclient --app-id swaylauncher bash -ic 'find ~/.password-store -printf "%P\n" | grep ".gpg$" | sed "s/.gpg$//" | sort | fzf -e | xargs -r pass show | head -1 | wl-copy -n && swaymsg [app_id=^swaylauncher$] resize set 210 10, move position 0 0 && printf "copied to clipboard" && sleep 5 && wl-copy -c'
-
-mode passthrough {
-	bindsym $mod+Pause mode default
-}
-bindsym $mod+Pause mode passthrough
+bindsym $mod+d exec dash -c 'cat .config/applist.txt | tofi | xargs -r swaymsg -t command exec'
+bindsym $mod+Shift+d exec footclient -a swaylauncher -e bash -ic 'find ~/.password-store -printf "%P\n" | grep ".gpg$" | sed "s/.gpg$//" | sort | fzf -e | xargs -r pass show | head -1 | wl-copy -n && swaymsg [app_id=^swaylauncher$] resize set 210 10, move position 0 0 && printf "copied to clipboard" && sleep 5 && wl-copy -c'
 
 # recent used desktop switch
 bindsym $mod+Tab workspace back_and_forth
@@ -186,7 +179,7 @@ input 9610:30:HAILUCK_CO.,LTD_USB_KEYBOARD_Touchpad {
 
 exec yambar
 
-output * bg "$black" solid_color
+# output * bg "$black" solid_color
 
 exec swayidle -w before-sleep 'swaylock -f -c "$urgent"'
 
@@ -195,6 +188,8 @@ exec mako --font "monospace 11" --background-color "$black" --text-color "$foreg
 exec foot -s
 
 exec wlsunset -l 50 -L 14
+
+exec kanshi
 
 seat seat0 xcursor_theme Adwaita
 exec_always {

@@ -35,6 +35,7 @@ shopt -s cmdhist
 
 export HISTSIZE= 
 export HISTFILESIZE=
+export HISTFILE="$XDG_STATE_HOME/bash/history"
 
 # Avoid duplicate entries
 export HISTCONTROL="erasedups:ignoreboth"
@@ -53,7 +54,7 @@ bind '"\e[D": backward-char'
 
 
 if [ -x /usr/bin/dircolors ]; then
-  eval "$(dircolors -b ~/.dircolors)"
+  eval "$(dircolors -b $XDG_CONFIG_HOME/dircolors/colors)"
   alias ls='ls --color=auto'
   alias dir='dir --color=auto'
   alias vdir='vdir --color=auto'
@@ -63,20 +64,14 @@ if [ -x /usr/bin/dircolors ]; then
   alias egrep='egrep -i --color=auto'
 fi
 
-upload_terminfo() {
-	infocmp | ssh $@ tic -x -o \~/.terminfo /dev/stdin
-}
-
 alias doas='doas '
 alias ll='ls -alh --group-directories-first'
 alias cgit="git --git-dir=$HOME/.config/dotfiles.git --work-tree=$HOME"
 alias vim='nvim'
-alias attendance="web4u-attendance francm $WEB4U_ADM_PASSWORD"
 alias cal='cal -m'
-alias make='make -j$(nproc)'
 alias view='vim -R'
 alias ssh='TERM=xterm-256color ssh'
-alias wiki='nvim -c ":VimwikiIndex"'
+alias wget=wget --hsts-file="$XDG_DATA_HOME/wget-hsts"
 
 FG_GREY="\e[1;90m"
 FG_GREEN="\e[1;32m"
@@ -114,3 +109,4 @@ fi
 
 bind '"\C-o":"n -d\C-m"'
 bind '"\C-b":"git checkout $(git branch | fzf)\C-m"'
+

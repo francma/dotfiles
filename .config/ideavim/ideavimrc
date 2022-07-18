@@ -6,16 +6,20 @@ set highlightedyank
 set multiple-cursors
 set idearefactormode keep
 set ideajoin true
+set NERDTree
 
+nmap ss <Action>(RecentFiles)
 nmap gd <Action>(GotoDeclaration)
+nmap gt <Action>(GotoTest)
 nmap gr <Action>(FindUsages)
 nmap gi <Action>(QuickImplementations)
 nmap gv <Action>(opennInSplittedTab)
+nmap [d <Action>(GotoNextError)
+nmap ]d <Action>(GotoPrevError)
 
 nmap <leader>rn <Action>(RenameElement)
 
-nmap <leader>rf <Action>(ReormatCode)
-xmap <leader>rf <Action>(ReformatCode)
+xmap <leader>ff <Action>(ReformatCode)
 
 nmap <leader>ss <Action>(SearchEverywhere)
 nmap <leader>sf <Action>(GotoFile)
@@ -23,5 +27,9 @@ nmap <leader>sc <Action>(GotoClass)
 nmap <leader>sa <Action>(GotoAction)
 
 map <leader>tt <Action>(RunClass)
+
+map <leader>a <Action>(Annotate)
+
+nnoremap <C-n> :NERDTreeFocus<CR>
 
 set ideastatusicon=gray
