@@ -2,7 +2,7 @@
 	email = me@martinfranc.eu
 	name = Martin Franc
 [core]
-	excludesfile = /home/francma/.gitignore
+	excludesfile = /home/francma/.config/git/.gitignore
 	pager = delta
 [merge]
 	tool = smerge
@@ -23,3 +23,5 @@
 
 [diff]
 	colorMoved = default
+[push]
+	default = current

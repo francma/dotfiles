@@ -1,5 +1,14 @@
 set editing-mode vi
-set keyseq-timeout 500
+set keyseq-timeout 250
+
+set show-mode-in-prompt on
+set vi-ins-mode-string \1\e[6 q\2
+set vi-cmd-mode-string \1\e[2 q\2
+
+set completion-ignore-case on
+set completion-map-case on
+set show-all-if-ambiguous on
+set mark-symlinked-directories on
 
 #vi mode
 $if mode=vi
@@ -78,12 +87,9 @@ Control-l: clear-screen
 "G": end-of-history
 ?: reverse-search-history
 /: forward-search-history
-"oo": "a$(git branch --show-current)"
 
 set keymap vi-insert
 Control-l: clear-screen
-"\C-a": beginning-of-line
-"\C-e": end-of-line
 "\e[A": history-search-backward
 "\e[B": history-search-forward
 $endif
