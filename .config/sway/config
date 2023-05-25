@@ -50,8 +50,8 @@ for_window [app_id="firefox" title="Firefox — Sharing Indicator"] kill
 
 # program launcher
 for_window [app_id="^swaylauncher$"] floating enable, layout tabbed
-bindsym $mod+d exec dash -c 'cat .config/applist.txt | tofi | xargs -r swaymsg -t command exec'
-bindsym $mod+Shift+d exec footclient -a swaylauncher -e bash -ic 'find "$PASSWORD_STORE_DIR" -printf "%P\n" | grep ".gpg$" | sed "s/.gpg$//" | sort | fzf -e | xargs -r pass show | head -1 | wl-copy -n && swaymsg [app_id=^swaylauncher$] resize set 210 10, move position 0 0 && printf "copied to clipboard" && sleep 5 && wl-copy -c'
+bindsym $mod+d exec tofu-run
+bindsym $mod+Shift+d exec tofu-pass
 
 # recent used desktop switch
 bindsym $mod+Tab workspace back_and_forth

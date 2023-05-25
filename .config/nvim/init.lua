@@ -1,29 +1,38 @@
-vim.o.termguicolors = true 
-vim.o.relativenumber = true
-vim.o.hlsearch = false
-vim.o.showmode = false
+-- vim: expandtab:ts=2:sw=2:
+
+vim.opt.swapfile = false
+vim.opt.termguicolors = true 
+vim.opt.relativenumber = true
+vim.opt.hlsearch = false
+vim.opt.showmode = false
 vim.g.mapleader = ","
 
-require("paq-nvim")({
-  "editorconfig/editorconfig-vim",
-  "b3nj5m1n/kommentary",
-  "nvim-treesitter/nvim-treesitter",
-  "sainnhe/everforest",
-  "neovim/nvim-lspconfig",
-  "petertriho/nvim-scrollbar",
+vim.opt.tabstop = 4
+vim.opt.softtabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.expandtab = true
 
-  "nvim-lua/plenary.nvim",
-  "nvim-telescope/telescope.nvim",
-})
+require('packer').startup(function(use)
+  use("editorconfig/editorconfig-vim")
+  use("b3nj5m1n/kommentary")
+  use("sainnhe/everforest")
+  use("neovim/nvim-lspconfig")
+  use("nvim-treesitter/nvim-treesitter")
+  use("petertriho/nvim-scrollbar")
+end)
 
 vim.cmd 'colorscheme everforest'
 vim.cmd 'au TextYankPost * silent! lua vim.highlight.on_yank()'
 
-require 'nvim-treesitter.configs'.setup {
-  ensure_installed = "maintained",
+require'nvim-treesitter.configs'.setup {
   highlight = {
-    enable = true
-  }
+    enable = true,
+    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+    -- Using this option may slow down your editor, and you may see some duplicate highlights.
+    -- Instead of true it can also be a list of languages
+    additional_vim_regex_highlighting = false,
+  },
 }
 
 local nvim_lsp = require('lspconfig')
@@ -58,25 +67,5 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
   buf_set_keymap('n', '<space>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
   buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
-
 end
 
--- Use a loop to conveniently call 'setup' on multiple servers and
--- map buffer local keybindings when the language server attaches
-local servers = { 'phpactor' }
-for _, lsp in ipairs(servers) do
-  nvim_lsp[lsp].setup {
-    on_attach = on_attach,
-    flags = {
-      debounce_text_changes = 150,
-    }
-  }
-end
-
-local telescope = require('telescope')
-
-vim.api.nvim_set_keymap('n', '<leader>ff', '<cmd>lua require("telescope.builtin").find_files()<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>fg', '<cmd>lua require("telescope.builtin").live_grep()<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>fb', '<cmd>lua require("telescope.builtin").buffers()<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>fh', '<cmd>lua require("telescope.builtin").help_tags()<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>fr', '<cmd>lua require("telescope.builtin").lsp_workspace_symbols()<CR>', { noremap = true, silent = true })

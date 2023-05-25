@@ -38,9 +38,9 @@ alias ll='ls -alhv --group-directories-first'
 alias cgit="git --git-dir=$HOME/.config/dotfiles.git --work-tree=$HOME"
 alias vim='nvim'
 alias cal='cal -m'
-alias view='vim -R'
 alias ssh='TERM=xterm-256color ssh'
 alias wget=wget --hsts-file="$XDG_DATA_HOME/wget-hsts"
+alias wttr='curl wttr.in'
 
 FG_GREY="\001\e[1;90m\002"
 FG_GREEN="\001\e[1;32m\002"
@@ -53,31 +53,39 @@ RESET="\001\e[0m\002"
 PROMPT_COMMAND="history -a;$PROMPT_COMMAND"
 
 __prompt() {
-  local retcode="$?"
-
-  if [ $retcode = 0 ]; then
+  if [ $? = 0 ]; then
     local prompt_color="$FG_GREEN"
   else
     local prompt_color="$FG_RED"
   fi
 
-  local cwd=$(printf ${PWD/#$HOME/\~} | sed 's:\([^/]\)[^/]*/:\1/:g')
+  local cwd=$(printf ${PWD/#$HOME/\~} | sed -E 's:([.]?[^/])[^/]*/:\1/:g')
 
   printf "${FG_GREY}${cwd} ${prompt_color}%% "
 }
 
 PS1="\$(__prompt)${RESET}"
 
-if [ -f /usr/share/nnn/quitcd/quitcd.bash_zsh ]; then
-  source /usr/share/nnn/quitcd/quitcd.bash_zsh
-fi
+lfcd () {
+    tmp="$(mktemp)"
+    lf -last-dir-path="$tmp" "$@"
+    if [ -f "$tmp" ]; then
+        dir="$(cat "$tmp")"
+        rm -f "$tmp"
+        if [ -d "$dir" ]; then
+            if [ "$dir" != "$(pwd)" ]; then
+                cd "$dir"
+            fi
+        fi
+    fi
+}
 
 __fzf_checkout() {
-  git for-each-ref refs/heads/ --format='%(refname:short)' | fzf | xargs git checkout
+  git for-each-ref refs/heads/ --format='%(refname:short)' | sort -n | fzf | xargs git checkout
 }
 
 bind '"\C-b":"__fzf_checkout\C-m"'
-bind '"\C-o":"n -d\C-m"'
+bind '"\C-o":"lfcd\C-m"'
 
 eval "$(direnv hook bash)"
 

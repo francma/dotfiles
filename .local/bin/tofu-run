@@ -1,0 +1,11 @@
+#!/bin/bash
+what="$1"
+set -eu
+
+if [ "$what" = "nested" ]; then
+    compgen -c | fzf | xargs swaymsg exec
+    exit
+fi
+
+
+foot -a swaylauncher -- "$0" "nested"

@@ -35,13 +35,12 @@ bar:
         content:
           "":
             map:
-              tag: state
               default: 
                 string: 
                   text: "{name}"
                   margin: 6
-              values:
-                focused:
+              conditions:
+                state == focused:
                   string:
                     text: "{name}"
                     margin: 6
@@ -49,17 +48,5 @@ bar:
                     deco:
                       stack:
                         - background: {color: 4b565cff}
-          current:
-            map:
-              tag: mode
-              values:
-                resize:
-                  string:
-                    text: "resize"
-                    margin: 6
-                    foreground: 21252bff
-                    deco:
-                      stack:
-                        - background: {color: 98c379ff}
 
 

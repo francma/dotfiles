@@ -16,6 +16,12 @@ nmap gi <Action>(QuickImplementations)
 nmap gv <Action>(opennInSplittedTab)
 nmap [d <Action>(GotoNextError)
 nmap ]d <Action>(GotoPrevError)
+nmap K <Action>(QuickJavaDoc)
+
+nmap <leader><leader>w <Action>(AceWordAction)
+
+nmap <C-o> <Action>(Back)
+nmap <C-i> <Action>(Forward)
 
 nmap <leader>rn <Action>(RenameElement)
 
