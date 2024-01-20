@@ -1,0 +1,33 @@
+#!/bin/sh
+action=$1
+
+set -eu
+
+case "$action" in
+    inc)
+        status=$(pamixer -i 2 --get-volume --get-mute)
+        ;;
+    dec)
+        status=$(pamixer -d 2 --get-volume --get-mute)
+        ;;
+    toggle)
+        status=$(pamixer --toggle-mute --get-volume --get-mute)
+        ;;
+    *)
+        echo "Invalid action, expecting one of inc, dec, toggle"
+        exit 2
+        ;;
+esac
+
+muted=$(echo $status | cut -d' ' -f1)
+volume=$(echo $status | cut -d' ' -f2)
+
+wob="$(systemctl show --user wob.socket -p Listen | sed 's/Listen=//' | cut -d' ' -f1)"
+if [ "$wob" != '' ]; then
+    if $muted; then
+        echo "$volume muted" > "$wob"
+    else
+        echo "$volume" > "$wob"
+    fi
+fi
+

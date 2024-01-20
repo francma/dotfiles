@@ -1,11 +1,9 @@
 #!/bin/bash
 what="$1"
-set -eu
 
 if [ "$what" = "nested" ]; then
-    compgen -c | fzf | xargs swaymsg exec
+    find .config/tofi/applications -name '*.desktop' -type l -not -xtype l -or -type f | xargs grep -m1 -E '^Name=' | sed 's/:Name=/:/' | fzf --delimiter=":" --with-nth 2 | cut -d':' -f1 | xargs swaymsg exec dex
     exit
 fi
-
 
 foot -a swaylauncher -- "$0" "nested"

@@ -1,0 +1,23 @@
+#!/bin/sh
+
+readonly BAT="/sys/class/power_supply/BAT0"
+readonly WLAN="/sys/class/net/wlan0"
+
+bat_status="$(cat $BAT/status)"
+bat_capacity="$(cat $BAT/capacity)"
+datetime="$(date --rfc-3339=seconds)"
+
+wifi_status="$(cat $WLAN/operstate)"
+if [ $wifi_status = "up" ]; then
+    wifi_ssid="$(iw dev wlan0 link | grep SSID | sed 's/\sSSID:\s//')"
+    wifi_ip="$(ip --json -f inet addr show wlan0 | jq '.[].addr_info[] | select(.family == "inet").local' -r)"
+    wifi="$wifi_ssid $wifi_ip"
+else
+    wifi="down"
+fi
+
+
+
+notify-send "BAT : ${bat_capacity}% ${bat_status}
+TIME: ${datetime}
+WIFI: ${wifi}"

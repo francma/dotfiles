@@ -1,5 +1,6 @@
 let mapleader=","
 
+set hlsearch
 set number relativenumber
 set commentary
 set highlightedyank
@@ -7,6 +8,8 @@ set multiple-cursors
 set idearefactormode keep
 set ideajoin true
 set NERDTree
+
+nnoremap Y y$
 
 nmap ss <Action>(RecentFiles)
 nmap gd <Action>(GotoDeclaration)
@@ -17,11 +20,23 @@ nmap gv <Action>(opennInSplittedTab)
 nmap [d <Action>(GotoNextError)
 nmap ]d <Action>(GotoPrevError)
 nmap K <Action>(QuickJavaDoc)
+nnoremap <C-L> :nohls<cr><C-L>
 
 nmap <leader><leader>w <Action>(AceWordAction)
 
 nmap <C-o> <Action>(Back)
 nmap <C-i> <Action>(Forward)
+nmap <C-k> <Action>(ParameterInfo)
+imap <C-k> <Action>(ParameterInfo)
+
+nmap <C-e> <Action>(RecentFiles)
+imap <C-e> <Action>(RecentFiles)
+
+imap <M-a> <Action>(copilot.requestCompletions)
+imap <M-j> <Action>(copilot.cycleNextInlays)
+imap <M-k> <Action>(copilot.cyclePrevInlays)
+
+imap <M-k> <Action>(ActivateGitHubCopilotChatToolWindow)
 
 nmap <leader>rn <Action>(RenameElement)
 

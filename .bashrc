@@ -40,7 +40,6 @@ alias vim='nvim'
 alias cal='cal -m'
 alias ssh='TERM=xterm-256color ssh'
 alias wget=wget --hsts-file="$XDG_DATA_HOME/wget-hsts"
-alias wttr='curl wttr.in'
 
 FG_GREY="\001\e[1;90m\002"
 FG_GREEN="\001\e[1;32m\002"

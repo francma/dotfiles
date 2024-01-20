@@ -1,44 +1,65 @@
 set $mod Mod4
 
-set $WOBSOCK $XDG_RUNTIME_DIR/wob.sock
+set $bg_dim #1e2326
+set $bg0 #272e33
+set $bg1 #2e383c
+set $bg2 #374145
+set $bg3 #414b50
+set $bg4 #495156
+set $bg5 #4f5b58
+set $bg_visual #4c3743
+set $bg_red #493b40
+set $bg_green #3c4841
+set $bg_blue #384b55
+set $bg_yellow #45443c
 
-set $black #2f383e
-set $foreground #d3c6aa
-set $accent #7fbbb3
-set $darkslategray #4b565c
-set $urgent #e67e80
+set $fg #d3c6aa
+set $red #e67e80
+set $orange #e69875
+set $yellow #dbbc7f
+set $green #a7c080
+set $aqua #83c092
+set $blue #7fbbb3
+set $purple #d699b6
+set $grey0 #7a8478
+set $grey1 #859289
+set $statusline1 #a7c080
+set $statusline2 #d3c6aa
+set $statusline3 #e67e80
 
-font pango:monospace 11
+font pango:monospace 8
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
 # remove title bars
-default_border pixel 4
+default_border pixel 2
+
+gaps inner 5
 
 # volume controls
-bindsym XF86AudioRaiseVolume exec pamixer -ui 2 && pamixer --get-volume > $WOBSOCK
-bindsym XF86AudioLowerVolume exec pamixer -ud 2 && pamixer --get-volume > $WOBSOCK
-bindsym XF86AudioMute exec pamixer --toggle-mute && ( pamixer --get-mute && echo 0 > $WOBSOCK ) || pamixer --get-volume > $WOBSOCK
+bindsym XF86AudioRaiseVolume exec tofu-volume inc
+bindsym XF86AudioLowerVolume exec tofu-volume dec
+bindsym XF86AudioMute exec tofu-volume toggle
 
-# ddcutil
-bindsym $mod+n exec doas /usr/bin/ddcutil --noverify --less-sleep --sleep-multiplier .1 setvcp 10 - 5
-bindsym $mod+m exec doas /usr/bin/ddcutil --noverify --less-sleep --sleep-multiplier .1 setvcp 10 + 5
+# backlight
+bindsym $mod+n exec tofu-light dec
+bindsym $mod+m exec tofu-light inc
+
+# status
+bindsym $mod+p exec tofu-notify-status
 
 bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 bindsym XF86AudioStop exec playerctl stop
-
 bindsym XF86Battery exec swaylock -f -c "$black"
-
-bindsym XF86MonBrightnessUp exec light -A 5 && light -G | cut -d'.' -f1 > /tmp/wobpipe
-bindsym XF86MonBrightnessDown exec light -U 5 && light -G | cut -d'.' -f1 > /tmp/wobpipe
 
 bindsym $mod+q exec makoctl dismiss --all
 
 bindsym $mod+Return exec footclient
 bindsym Print exec grim -g "$(slurp)" - | wl-copy 
+bindsym Shift+Print exec grim - | wl-copy 
 
 bindsym $mod+Shift+q kill
 
@@ -98,7 +119,6 @@ bindsym $mod+space focus mode_toggle
 # focus the parent container
 bindsym $mod+a focus parent
 
-# switch to workspace
 bindsym $mod+1 workspace 1
 bindsym $mod+2 workspace 2
 bindsym $mod+3 workspace 3
@@ -109,7 +129,6 @@ bindsym $mod+7 workspace 7
 bindsym $mod+8 workspace 8
 bindsym $mod+9 workspace 9
 
-# move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace 1
 bindsym $mod+Shift+2 move container to workspace 2
 bindsym $mod+Shift+3 move container to workspace 3
@@ -120,14 +139,10 @@ bindsym $mod+Shift+7 move container to workspace 7
 bindsym $mod+Shift+8 move container to workspace 8
 bindsym $mod+Shift+9 move container to workspace 9
 
-# reload the configuration file
 bindsym $mod+Shift+c reload
-# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
-# exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exit
 
-# resize window (you can also use the mouse for that)
 mode "resize" {
     bindsym h resize shrink width 10 px or 10 ppt
     bindsym j resize grow height 10 px or 10 ppt
@@ -140,10 +155,10 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 # class                 border|backgr|text|indicator|child_border
-client.focused          $black $accent $black $black
-client.focused_inactive $black $darkslategray $foreground $black
-client.unfocused        $black $darkslategray $foreground $black
-client.urgent           $urgent $urgent $foreground $black
+client.focused          $bg0 $aqua $bg0 $bg0
+client.focused_inactive $bg0 $grey0 $fg $bg0
+client.unfocused        $bg0 $grey0 $fg $bg0
+client.urgent           $orange $orange $fg $bg0
 
 input type:keyboard {
     xkb_layout us,cz
@@ -153,43 +168,51 @@ input type:keyboard {
     repeat_rate 30
 }
 
-input 0:0:virtual_keyboard {
-    repeat_delay 200
-    repeat_rate 20
+input type:mouse {
+    accel_profile flat
 }
 
 input 1241:355:USB-HID_Keyboard_Mouse {
     scroll_factor 2.5
-    accel_profile flat
 }
 
 input 2:14:ETPS/2_Elantech_Touchpad {
     events disabled
 }
 
-input 2:14:ETPS/2_Elantech_Trackpoint {
-    accel_profile flat
-}
-
 input 9610:30:HAILUCK_CO.,LTD_USB_KEYBOARD_Touchpad {
     tap enabled
-    accel_profile flat
     pointer_accel 1
 }
 
-exec yambar
+output * {
+    background  #000000 solid_color
+}
 
-# output * bg "$black" solid_color
+exec swayidle -w before-sleep 'swaylock -f -c "$accent"'
 
-exec swayidle -w before-sleep 'swaylock -f -c "$urgent"'
-
-exec mako --font "monospace 11" --background-color "$black" --text-color "$foreground" --border-color "$accent"
+exec mako
 
 exec foot -s
 
 exec wlsunset -l 50 -L 14
 
 exec kanshi
+
+bar {
+    font pango: monospace bold 10
+    status_command i3blocks -c ~/.config/sway/i3blocks.conf
+    position bottom
+    tray_output none
+    colors {
+        background #000000FF
+        statusline #AAAAAAFF
+        focused_workspace #000000FF #000000FF #FFFFFFFF
+        active_workspace #000000FF #000000FF #AAAAAAFF
+        inactive_workspace #000000FF #000000FF #AAAAAAFF
+    }
+}
+
 
 seat seat0 xcursor_theme Adwaita
 exec_always {

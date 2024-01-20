@@ -1,0 +1,38 @@
+#!/bin/sh
+action=$1
+
+set -eu
+
+step=5
+
+focused_output="$(swaymsg -t get_tree | jq -r '.nodes[] | select([recurse(.nodes[]?, .floating_nodes[]?) | .focused] | any) | .name')"
+
+case "$focused_output" in
+    eDP-1)
+        device="$(light -L | grep auto | head -1 | xargs)"
+        ;;
+    *)
+        device="$(light -L | grep ddcci | xargs)"
+        ;;
+esac
+
+case "$action" in
+    inc)
+        light -s "$device" -A $step
+        ;;
+    dec)
+        light -s "$device" -U $step
+        ;;
+    *)
+        echo "Invalid action, expecting one of inc, dec"
+        exit 2
+        ;;
+esac
+
+value=$(light -s "$device" | cut -d'.' -f1)
+    
+wob="$(systemctl show --user wob.socket -p Listen | sed 's/Listen=//' | cut -d' ' -f1)"
+if [ "$wob" != '' ]; then
+    echo "$value" > "$wob"
+fi
+
