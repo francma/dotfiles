@@ -42,18 +42,18 @@ bindsym XF86AudioRaiseVolume exec tofu-volume inc
 bindsym XF86AudioLowerVolume exec tofu-volume dec
 bindsym XF86AudioMute exec tofu-volume toggle
 
+bindsym $mod+w exec sh ydotool-test.sh
+
 # backlight
 bindsym $mod+n exec tofu-light dec
 bindsym $mod+m exec tofu-light inc
-
-# status
-bindsym $mod+p exec tofu-notify-status
 
 bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 bindsym XF86AudioStop exec playerctl stop
 bindsym XF86Battery exec swaylock -f -c "$black"
+bindsym XF86HomePage exec pamixer --default-source -t
 
 bindsym $mod+q exec makoctl dismiss --all
 
@@ -69,8 +69,10 @@ for_window [class="jetbrains-(.*)" title="Open Project"] floating enable
 for_window [class="jetbrains-(.*)" title="win0"] floating enable
 for_window [app_id="firefox" title="Firefox — Sharing Indicator"] kill
 
+bindsym $mod+p exec pwvucontrol
+for_window [app_id="com.saivert.pwvucontrol"] floating enable
+
 # program launcher
-for_window [app_id="^swaylauncher$"] floating enable, layout tabbed
 bindsym $mod+d exec tofu-run
 bindsym $mod+Shift+d exec tofu-pass
 
@@ -79,10 +81,18 @@ bindsym $mod+Tab workspace back_and_forth
 workspace_auto_back_and_forth yes
 
 # Make the currently focused window a scratchpad
-bindsym $mod+Shift+Grave move scratchpad
+# bindsym $mod+Shift+Grave move scratchpad
 
 # Show the first scratchpad window
-bindsym $mod+Grave scratchpad show
+# bindsym $mod+Grave scratchpad show
+
+for_window [app_id="^swayfloat$"] floating enable, layout tabbed
+for_window [app_id="Slack"] floating enable, resize set width 1600 height 1000
+for_window [instance="discord"] floating enable, resize set width 1600 height 1000
+for_window [instance=pinentry-gtk] floating enable
+bindsym $mod+Grave exec .local/bin/tofu-chat slack
+bindsym $mod+Shift+Grave exec .local/bin/tofu-chat discord
+bindsym $mod+t exec footclient -a swayfloat -w 1600x1000
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+h focus left
@@ -107,7 +117,7 @@ bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
+# bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
@@ -163,13 +173,18 @@ client.urgent           $orange $orange $fg $bg0
 input type:keyboard {
     xkb_layout us,cz
     xkb_variant ,qwerty
-    xkb_options grp:alt_shift_toggle,caps:escape
+    # xkb_options grp:alt_shift_toggle,caps:escape
+    xkb_options grp:alt_shift_toggle
     repeat_delay 300
     repeat_rate 30
 }
 
-input type:mouse {
+input type:pointer {
     accel_profile flat
+}
+
+input 2:14:ETPS/2_Elantech_TrackPoint {
+    pointer_accel 0.25
 }
 
 input 1241:355:USB-HID_Keyboard_Mouse {
@@ -189,7 +204,7 @@ output * {
     background  #000000 solid_color
 }
 
-exec swayidle -w before-sleep 'swaylock -f -c "$accent"'
+exec swayidle -w before-sleep 'swaylock -f'
 
 exec mako
 
@@ -204,6 +219,7 @@ bar {
     status_command i3blocks -c ~/.config/sway/i3blocks.conf
     position bottom
     tray_output none
+    separator_symbol " ❯ "
     colors {
         background #000000FF
         statusline #AAAAAAFF
@@ -218,7 +234,7 @@ seat seat0 xcursor_theme Adwaita
 exec_always {
     gsettings set org.gnome.desktop.interface font-name 'sans-serif 11'
     gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita'
-    gsettings set org.gnome.desktop.interface icon-theme 'Arc'
+    gsettings set org.gnome.desktop.interface icon-theme 'Adwaita'
     gsettings set org.gnome.desktop.interface cursor-theme 'Adwaita'
 }
 

@@ -1,0 +1,16 @@
+#!/bin/sh
+export TERMINAL=foot
+export _JAVA_AWT_WM_NONREPARENTING=1
+export _SILENT_JAVA_OPTIONS="-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true"
+
+export XDG_SESSION_TYPE=wayland
+export XDG_CURRENT_DESKTOP=sway
+
+export RADV_PERFTEST=video_decode
+export MOZ_ENABLE_WAYLAND=1
+export MOZ_DISABLE_RDD_SANDBOX=1
+export LIBSEAT_BACKEND=logind
+export WLR_RENDERER=vulkan
+export FREETYPE_PROPERTIES="cff:no-stem-darkening=0 autofitter:no-stem-darkening=0"
+
+exec sway

@@ -1,9 +1,12 @@
-#!/bin/bash
-what="$1"
+#!/bin/sh
+set -eu
 
-if [ "$what" = "nested" ]; then
-    find .config/tofi/applications -name '*.desktop' -type l -not -xtype l -or -type f | xargs grep -m1 -E '^Name=' | sed 's/:Name=/:/' | fzf --delimiter=":" --with-nth 2 | cut -d':' -f1 | xargs swaymsg exec dex
-    exit
+export BEMENU_OPTS='-i -l 10 -B 5 -H 40 -W 0.33 --fn "monospace 14" -p ">" --hp 5 -c --fixed-height'
+
+cd ~/.local/share/applications 
+
+selection=$(find . -name '*.desktop' | xargs grep -L 'NoDisplay=true' | xargs basename -s '.desktop' | sort | bemenu)
+if [ $? -eq 0 ]; then
+    printf "%s.desktop\n" "$selection" | xargs dex
 fi
 
-foot -a swaylauncher -- "$0" "nested"

@@ -9,27 +9,37 @@ focused_output="$(swaymsg -t get_tree | jq -r '.nodes[] | select([recurse(.nodes
 
 case "$focused_output" in
     eDP-1)
-        device="$(light -L | grep auto | head -1 | xargs)"
+        case "$action" in
+            inc)
+                brightnessctl s +$step%
+                ;;
+            dec)
+                brightnessctl s $step%-
+                ;;
+            *)
+                echo "Invalid action, expecting one of inc, dec"
+                exit 2
+                ;;
+        esac
+        value=$(echo "$(brightnessctl g) / $(brightnessctl m) * 100" | bc -l | xargs printf '%.*f\n' 0)
         ;;
     *)
-        device="$(light -L | grep ddcci | xargs)"
+        case "$action" in
+            inc)
+                value=$(ddccontrol -r 0x10 -W +$step dev:/dev/i2c-6 | grep "Control 0x10" | cut -d'/' -f2)
+                ;;
+            dec)
+                value=$(ddccontrol -r 0x10 -W -$step dev:/dev/i2c-6 | grep "Control 0x10" | cut -d'/' -f2)
+                ;;
+            *)
+                echo "Invalid action, expecting one of inc, dec"
+                exit 2
+                ;;
+        esac
         ;;
 esac
 
-case "$action" in
-    inc)
-        light -s "$device" -A $step
-        ;;
-    dec)
-        light -s "$device" -U $step
-        ;;
-    *)
-        echo "Invalid action, expecting one of inc, dec"
-        exit 2
-        ;;
-esac
 
-value=$(light -s "$device" | cut -d'.' -f1)
     
 wob="$(systemctl show --user wob.socket -p Listen | sed 's/Listen=//' | cut -d' ' -f1)"
 if [ "$wob" != '' ]; then

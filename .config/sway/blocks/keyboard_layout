@@ -1,0 +1,23 @@
+#!/bin/sh
+
+layout2h() {
+    case "$1" in
+        "English (US)")
+            echo "US"
+            ;;
+        "Czech (QWERTY)")
+            echo "CZ"
+            ;;
+    esac
+}
+
+prev_layout=$(swaymsg -t get_inputs -r | jq -r '[.[]|select(.xkb_active_layout_name != null)|.xkb_active_layout_name]|.[0]')
+
+layout2h "$prev_layout"
+
+swaymsg -t subscribe -m '["input"]' | jq --unbuffered -r '.input.xkb_active_layout_name' | while read -r layout; do
+    if [ "$layout" != "$prev_layout" ]; then
+        layout2h "$layout"
+    fi
+    prev_layout=$layout
+done

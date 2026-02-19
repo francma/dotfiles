@@ -1,0 +1,35 @@
+#!/bin/sh
+
+if swaymsg -t get_tree | jq -e '.. | objects | select(.app_id=="Slack") | .app_id' 1>/dev/null; then
+    swaymsg '[app_id="Slack"] kill'
+
+    if [ "$1" = "slack" ]; then
+        exit
+    fi
+fi
+
+if swaymsg -t get_tree | jq -e '.. | objects | select(.instance=="discord") | .instance' 1>/dev/null; then
+    swaymsg '[instance="discord"] kill'
+
+    if [ "$1" = "discord" ]; then
+        exit
+    fi
+fi
+
+if [ "$1" = "slack" ]; then
+    OPENBIN="$HOME/.config/Slack/open.bin"
+    if ! [ -e "$OPENBIN" ]; then
+        echo -e 'START\0$HOME\0slack' > "$OPENBIN"
+    fi 
+
+    socat -u OPEN:$OPENBIN UNIX-CONNECT:$HOME/.config/Slack/SingletonSocket
+fi
+
+if [ "$1" = "discord" ]; then
+    OPENBIN="$HOME/.config/discord/open.bin"
+    if ! [ -e "$OPENBIN" ]; then
+        printf 'START\0$HOME\0discord' > "$OPENBIN"
+    fi 
+
+    socat -u OPEN:$OPENBIN UNIX-CONNECT:$HOME/.config/discord/SingletonSocket
+fi

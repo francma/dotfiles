@@ -1,20 +1,20 @@
 #!/bin/sh
-what="$1"
-
 set -eu
 
-if [ "$what" = "nested" ]; then
-    find "$PASSWORD_STORE_DIR" -name "*.gpg" -printf "%P\n" | sed "s/.gpg$//" | fzf > "$TOFU_PASS_TMP"
-    exit
+export BEMENU_OPTS='-i -l 10 -B 5 -H 40 -W 0.33 --fn "monospace 14" -p ">" --hp 5 -c --fixed-height'
+
+selection=$(find "$PASSWORD_STORE_DIR" -name "*.gpg" -printf "%P\n" | sed "s/.gpg$//" | bemenu)
+if [ $? -neq 0 ]; then
+    exit 1
 fi
 
-export TOFU_PASS_TMP=$(mktemp --suffix=tofu-pass)
-trap 'rm "$TOFU_PASS_TMP"' EXIT
-
-foot -a swaylauncher -- "$0" "nested"
-
-selection=$(cat "$TOFU_PASS_TMP")
-if [ "$selection" != "" ]; then
-    pass show "$selection" | head -n1 | tr -d '\n' | $(sleep 4; wtype -)
+password=$(pass show "$selection" | head -n1 | tr -d '\n')
+if [ "$password" = "" ]; then
+    exit 1
 fi
+
+slurp -p
+ydotool click 0xC0
+sleep 0.1
+printf '%s' "$password" | ydotool type -f -
 
