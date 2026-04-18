@@ -1,5 +1,3 @@
-#!/usr/bin/tcc -run
-
 #include <stdio.h>
 #include <sys/timerfd.h>
 #include <unistd.h>

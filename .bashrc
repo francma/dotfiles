@@ -58,7 +58,7 @@ __prompt() {
     local prompt_color="$FG_RED"
   fi
 
-  local cwd=$(printf ${PWD/#$HOME/\~} | sed -E 's:([.]?[^/])[^/]*/:\1/:g')
+  local cwd="$(printf ${PWD/#$HOME/\~} | sed -E 's:([.]?[^/])[^/]*/:\1/:g')"
 
   printf "${FG_GREY}${cwd} ${prompt_color}%% "
 }
@@ -88,3 +88,11 @@ bind '"\C-o":"lfcd\C-m"'
 
 eval "$(direnv hook bash)"
 
+
+# pnpm
+export PNPM_HOME="/home/francma/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
