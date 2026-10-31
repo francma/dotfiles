@@ -11,6 +11,7 @@ x-scheme-handler/postman=Postman.desktop
 x-scheme-handler/claude-cli=claude-code-url-handler.desktop
 x-scheme-handler/mpv=mpv-scheme-handler.desktop
 x-scheme-handler/webcal=chromium.desktop
+x-scheme-handler/jetbrains-gateway=jetbrains-gateway.desktop
 
 [Added Associations]
 application/pdf=org.pwmt.zathura-pdf-mupdf.desktop;firefox.desktop;

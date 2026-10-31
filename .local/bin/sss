@@ -1,11 +1,12 @@
 #!/bin/sh
-export TERMINAL=foot
+export TERMINAL=alacritty
 export _JAVA_AWT_WM_NONREPARENTING=1
 export _SILENT_JAVA_OPTIONS="-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true"
 
 export XDG_SESSION_TYPE=wayland
 export XDG_CURRENT_DESKTOP=sway
 
+export ANV_VIDEO_DECODE=1
 export RADV_PERFTEST=video_decode
 export MOZ_ENABLE_WAYLAND=1
 export MOZ_DISABLE_RDD_SANDBOX=1

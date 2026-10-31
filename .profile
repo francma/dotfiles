@@ -23,3 +23,6 @@ export IPYTHONDIR=${XDG_CONFIG_HOME}/ipython
 export PASSWORD_STORE_DIR=${XDG_DATA_HOME}/pass
 export GOPATH="$XDG_DATA_HOME"/go
 export TEXMFVAR="$XDG_CACHE_HOME"/texlive/texmf-var
+export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/podman/podman.sock
+export DOCKER_BUILDKIT=0
+

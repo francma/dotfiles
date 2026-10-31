@@ -47,7 +47,9 @@ nmap <leader>sf <Action>(GotoFile)
 nmap <leader>sc <Action>(GotoClass)
 nmap <leader>sa <Action>(GotoAction)
 
-map <leader>tt <Action>(RunClass)
+vnoremap <leader>T <Action>(SurroundWithTagTemplate)
+
+map <leader>tt <Action>(Debug)
 
 map <leader>a <Action>(Annotate)
 

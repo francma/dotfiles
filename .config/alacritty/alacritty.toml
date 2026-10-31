@@ -1,0 +1,60 @@
+[window]
+padding = { x = 2, y = 2 }
+class = { instance = "Alacritty", general = "alacritty-terminal" }
+
+[font]
+size = 12.0
+
+[font.normal]
+family = "JetBrains Mono"
+style = "Medium"
+
+[terminal.shell]
+program = "/bin/bash"
+
+[[keyboard.bindings]]
+key = "Return"
+mods = "Shift"
+chars = "\u001B\r"
+
+[[keyboard.bindings]]
+key = "V"
+mods = "Control|Shift"
+command = { program = "/home/francma/.config/alacritty/smart-paste" }
+
+[[keyboard.bindings]]
+key = "B"
+mods = "Control|Shift"
+action = "Paste"
+
+# Default colors
+[colors.primary]
+background = '#2D2A2E'
+foreground = '#FCFCFA'
+
+# Cursor colors
+[colors.cursor]
+text = '#2D2A2E'
+cursor = '#FCFCFA'
+
+# Normal colors
+[colors.normal]
+black = '#403E41'
+red = '#FF6188'
+green = '#A9DC76'
+yellow = '#FFD866'
+blue = '#FC9867'
+magenta = '#AB9DF2'
+cyan = '#78DCE8'
+white = '#FCFCFA'
+
+# Bright colors
+[colors.bright]
+black = '#727072'
+red = '#FF6188'
+green = '#A9DC76'
+yellow = '#FFD866'
+blue = '#FC9867'
+magenta = '#AB9DF2'
+cyan = '#78DCE8'
+white = '#FCFCFA'

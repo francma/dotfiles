@@ -1,0 +1,18 @@
+#!/bin/sh
+dir="${XDG_CACHE_HOME}/paste-images"
+
+if wl-paste --list-types 2>/dev/null | grep -q '^image/'; then
+    mkdir -p "$dir"
+    file="$dir/$(date +%Y%m%d-%H%M%S).png"
+    wl-paste --type image/png > "$file" 2>/dev/null || exit 1
+
+    # swap clipboard to the path, native-paste it, restore image
+    printf '%s' "$file" | wl-copy
+    # bare B: physical Ctrl+Shift still held → Ctrl+Shift+B → Alacritty Paste
+    ydotool key 48:1 48:0
+    # let the paste consume the path before restoring the image
+    (sleep 0.3 && wl-copy < "$file") &
+else
+    # text: native paste of clipboard as-is
+    ydotool key 48:1 48:0
+fi

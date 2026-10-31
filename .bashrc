@@ -21,6 +21,8 @@ export HISTCONTROL="erasedups:ignoreboth"
 export HISTIGNORE="&:[ ]*:exit:ll:ls:bg:fg:history:clear:lfcd:poweroff:reboot"
 
 export GPG_TTY="$(tty)"
+export COLORTERM=truecolor
+export CLAUDE_CODE_TMUX_TRUECOLOR=1
 
 if [ -x /usr/bin/dircolors ]; then
   eval "$(dircolors -b $XDG_CONFIG_HOME/dircolors/colors)"
@@ -34,6 +36,7 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 alias doas='doas '
+alias sudo='sudo '
 alias ll='ls -alhv --group-directories-first'
 alias cgit="git --git-dir=$HOME/.config/dotfiles.git --work-tree=$HOME"
 alias vim='nvim'
@@ -41,12 +44,16 @@ alias cal='cal -m'
 alias ssh='TERM=xterm-256color ssh'
 alias wget=wget --hsts-file="$XDG_DATA_HOME/wget-hsts"
 
-FG_GREY="\001\e[1;90m\002"
+FG_BLACK="\001\e[1;30m\002"
+FG_RED="\001\e[1;31m\002"
 FG_GREEN="\001\e[1;32m\002"
+FG_YELLOW="\001\e[1;33m\002"
 FG_BLUE="\001\e[1;34m\002"
 FG_PURPLE="\001\e[1;35m\002"
 FG_CYAN="\001\e[1;36m\002"
-FG_RED="\001\e[1;31m\002"
+FG_WHITE="\001\e[1;37m\002"
+FG_GREY="\001\e[1;90m\002"
+
 RESET="\001\e[0m\002"
 
 PROMPT_COMMAND="history -a;$PROMPT_COMMAND"
@@ -57,8 +64,7 @@ __prompt() {
   else
     local prompt_color="$FG_RED"
   fi
-
-  local cwd="$(printf ${PWD/#$HOME/\~} | sed -E 's:([.]?[^/])[^/]*/:\1/:g')"
+local cwd="$(printf ${PWD/#$HOME/\~} | sed -E 's:([.]?[^/])[^/]*/:\1/:g')"
 
   printf "${FG_GREY}${cwd} ${prompt_color}%% "
 }
@@ -86,8 +92,10 @@ __fzf_checkout() {
 bind '"\C-b":"__fzf_checkout\C-m"'
 bind '"\C-o":"lfcd\C-m"'
 
-eval "$(direnv hook bash)"
 
+if [ -z "$SANDBOX" ]; then
+    eval "$(direnv hook bash)"
+fi
 
 # pnpm
 export PNPM_HOME="/home/francma/.local/share/pnpm"

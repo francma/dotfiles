@@ -4,7 +4,7 @@ set -eu
 export BEMENU_OPTS='-i -l 10 -B 5 -H 40 -W 0.33 --fn "monospace 14" -p ">" --hp 5 -c --fixed-height'
 
 selection=$(find "$PASSWORD_STORE_DIR" -name "*.gpg" -printf "%P\n" | sed "s/.gpg$//" | bemenu)
-if [ $? -neq 0 ]; then
+if [ $? -ne 0 ]; then
     exit 1
 fi
 

@@ -1,0 +1,10 @@
+[Unit]
+Description=wlsunset
+PartOf=graphical-session.target
+After=graphical-session.target
+ 
+[Service]
+ExecStart=/usr/bin/wlsunset -l 50 -L 14
+ 
+[Install]
+WantedBy=graphical-session.target

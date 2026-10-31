@@ -1,4 +1,12 @@
 font=monospace 11
-background-color=#272e33
-text-color=#d3c6aa
-border-color=#384555
+background-color=#2D2A2E
+text-color=#FCFCFA
+border-color=#d699b6
+group-by=app-name,summary
+border-size=4
+outer-margin=0
+margin=0,0,5,0
+anchor=top-right
+
+[mode=dnd]
+invisible=1

@@ -26,10 +26,10 @@ case "$focused_output" in
     *)
         case "$action" in
             inc)
-                value=$(ddccontrol -r 0x10 -W +$step dev:/dev/i2c-6 | grep "Control 0x10" | cut -d'/' -f2)
+                value=$(ddccontrol -r 0x10 -W +$step dev:/dev/i2c-12 | grep "Control 0x10" | cut -d'/' -f2)
                 ;;
             dec)
-                value=$(ddccontrol -r 0x10 -W -$step dev:/dev/i2c-6 | grep "Control 0x10" | cut -d'/' -f2)
+                value=$(ddccontrol -r 0x10 -W -$step dev:/dev/i2c-12 | grep "Control 0x10" | cut -d'/' -f2)
                 ;;
             *)
                 echo "Invalid action, expecting one of inc, dec"

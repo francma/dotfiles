@@ -1,7 +1,8 @@
 #!/bin/sh
+set -eux
 
-if swaymsg -t get_tree | jq -e '.. | objects | select(.app_id=="Slack") | .app_id' 1>/dev/null; then
-    swaymsg '[app_id="Slack"] kill'
+if swaymsg -t get_tree | jq -e '.. | objects | select(.app_id=="slack") | .app_id' 1>/dev/null; then
+    swaymsg '[app_id="slack"] kill'
 
     if [ "$1" = "slack" ]; then
         exit
@@ -16,20 +17,29 @@ if swaymsg -t get_tree | jq -e '.. | objects | select(.instance=="discord") | .i
     fi
 fi
 
-if [ "$1" = "slack" ]; then
-    OPENBIN="$HOME/.config/Slack/open.bin"
-    if ! [ -e "$OPENBIN" ]; then
-        echo -e 'START\0$HOME\0slack' > "$OPENBIN"
-    fi 
+# this is how the raw output look (<['org.freedesktop.StatusNotifierItem-3200-1/StatusNotifierItem', ':1.79/StatusNotifierItem']>,)
+# 1. strip (<[ and ]>,)
+# 2. split on , to newlines
+# 3. remove '' around lines
+# 4. strip /StatusNotfierItem postfix
+icons="$(gdbus call --session --dest org.kde.StatusNotifierWatcher --object-path /StatusNotifierWatcher --method org.freedesktop.DBus.Properties.Get org.kde.StatusNotifierWatcher RegisteredStatusNotifierItems | sed -E 's/^\(<\[//; s/\]>,\)$//; s/, /\n/;' | sed -E "s/'$//; s/^'//" | sed -E 's#/StatusNotifierItem##' )"
 
-    socat -u OPEN:$OPENBIN UNIX-CONNECT:$HOME/.config/Slack/SingletonSocket
-fi
+for icon in $icons; do
+    pid="$(gdbus call --session --dest org.freedesktop.DBus --object-path /org/freedesktop/DBus --method org.freedesktop.DBus.GetConnectionUnixProcessID $icon | grep -oP '(?<=uint32 )\d+')"
 
-if [ "$1" = "discord" ]; then
-    OPENBIN="$HOME/.config/discord/open.bin"
-    if ! [ -e "$OPENBIN" ]; then
-        printf 'START\0$HOME\0discord' > "$OPENBIN"
-    fi 
+    cmdline="$(ps -eww -p $pid -o cmd=)"
 
-    socat -u OPEN:$OPENBIN UNIX-CONNECT:$HOME/.config/discord/SingletonSocket
-fi
+    matched=0
+    if [ "$1" = "slack" ] && $(printf '%s\n' "$cmdline" | grep -qi 'slack') ; then
+        matched=1
+    fi
+
+    if [ "$1" = "discord" ] && $(printf '%s\n' "$cmdline" | grep -qi 'discord') ; then
+        matched=1
+    fi
+
+    if [ "$matched" = "1" ]; then
+        gdbus call --session --dest "$icon" --object-path /StatusNotifierItem --method org.kde.StatusNotifierItem.Activate 0 0
+    fi
+done
+

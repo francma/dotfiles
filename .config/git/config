@@ -4,6 +4,7 @@
 [core]
 	excludesfile = /home/francma/.config/git/.gitignore
 	pager = delta
+	hooksPath = /home/francma/.config/git/hooks
 [merge]
 	tool = smerge
 [pull]
